@@ -1,0 +1,129 @@
+body {
+  height: 100%; /* Garante que o body e html ocupem 100% da altura */
+  margin: 0; /* Remove margens padrão */
+}
+
+.navigation {
+  background-color: #282c34; /* Cor de fundo escura para a navegação */
+  color: white; /* Cor do texto */
+  display: flex; /* Layout flexível para alinhar os itens */
+  justify-content: space-between; /* Espaço entre os itens */
+  align-items: center; /* Alinhamento centralizado verticalmente */
+  padding: 10px 20px; /* Espaçamento interno */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil na parte inferior */
+}
+
+.inscricoes-button {
+  background-color: #282c34; /* Cor de fundo escura para a navegação */
+  color: white; /* Cor do texto */
+  border: none; /* Remove a borda */
+  padding: 10px 20px; /* Espaçamento interno */
+  border-radius: 5px; /* Bordas arredondadas */
+  cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
+  font-weight: bold; /* Texto em negrito */
+  margin-right: 15px; /* Espaço à direita do botão */
+}
+
+/* Estilo para a seção de eventos */
+.eventos-container {
+  background-color: white; /* Cor de fundo escura para a navegação */
+  width: 90%; /* Ajuste a largura conforme necessário */
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 900px; /* Limita a largura máxima do container */
+  height: auto; /* Altura automática para permitir conteúdo flexível */
+  padding: 20px; /* Espaçamento interno do container de eventos */
+  margin-top: 20px; /* Espaçamento superior do container de eventos */
+  border-radius: 10px; /* Bordas arredondadas */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra opcional para destaque */
+}
+
+.event-item p {
+  font-size: 1.2rem; /* Aumenta o tamanho da fonte */
+  margin: 5px 0; /* Adiciona um espaço entre os parágrafos */
+}
+
+.event-item strong {
+  font-size: 1.2rem; /* Aumenta o tamanho da fonte do texto em negrito */
+  color: #007bff; /* Opcional: muda a cor do texto em negrito */
+}
+
+.eventos-titulo {
+  margin-bottom: 20px; /* Espaço abaixo do título */
+  text-align: center; /* Centraliza o texto */
+}
+
+.event-list {
+  display: grid; /* Usando grid para layout */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Cria até 6 colunas de 200px */
+  gap: 20px; /* Espaçamento entre os itens */
+}
+
+.event-item {
+  padding: 15px; /* Espaçamento interno dos itens */
+  border: 1px solid #ccc; /* Borda ao redor dos itens */
+  border-radius: 5px; /* Bordas arredondadas */
+  background-color: #f9f9f9; /* Cor de fundo */
+  text-align: center; /* Centraliza o texto dentro do item */
+}
+.load-more-button {
+  display: block; /* Faz o botão ocupar toda a largura */
+  margin: 20px auto; /* Centraliza o botão */
+  padding: 10px 20px; /* Espaçamento interno do botão */
+  background-color: #007bff; /* Cor de fundo */
+  color: white; /* Cor do texto */
+  border: none; /* Remove a borda */
+  border-radius: 5px; /* Bordas arredondadas */
+  cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
+}
+/* Estilo para a seção de navegação */
+.navigation div {
+  display: flex; /* Usando flexbox para alinhar os itens */
+  align-items: center; /* Centraliza verticalmente os itens */
+  gap: 10px; /* Espaçamento entre o texto e o botão */
+}
+
+.event-item {
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Efeito ao passar o mouse */
+}
+
+/* Efeito ao passar o mouse sobre os eventos */
+.event-item:hover {
+  transform: translateY(-5px); /* Leve elevação ao passar o mouse */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada */
+}
+
+/* Botão de inscrição */
+.event-item button {
+  background-color: #28a745; /* Cor verde para o botão de inscrição */
+  color: white; /* Cor do texto */
+  border: none; /* Remove a borda padrão */
+  padding: 10px 15px; /* Espaçamento interno */
+  border-radius: 5px; /* Cantos arredondados */
+  cursor: pointer; /* Mostra que é clicável */
+  transition: background-color 0.3s ease; /* Efeito de transição */
+}
+
+.event-item button:hover {
+  background-color: #218838; /* Cor mais escura ao passar o mouse */
+}
+
+.logout-button {
+  background-color: #ff4d4f; /* Cor de fundo vermelha */
+  color: white; /* Cor do texto */
+  border: none; /* Remove a borda padrão */
+  padding: 10px 20px; /* Espaçamento interno */
+  border-radius: 8px; /* Bordas arredondadas */
+  cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
+  font-weight: bold; /* Texto em negrito */
+  transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+}
+
+.logout-button:hover {
+  background-color: #e04344; /* Cor mais escura ao passar o mouse */
+}
+
+.logout-button:focus {
+  outline: none; /* Remove a linha de foco padrão */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Adiciona um leve destaque ao botão quando focado */
+}

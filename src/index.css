@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  height: 100vh;
+}
+
+.login-main {
+  display: flex;
+}
+
+.login-left {
+  flex-grow: 1;
+  height: 100vh;
+  background-color: #e9e9e9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-left img {
+  width: 400px;
+}
+
+.login-right {
+  height: 100vh;
+  flex-grow: 1;
+}
+
+.login-right-container {
+  height: 100%;
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-right form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-logo {
+  align-self: center;
+  padding-top: 50px;
+}
+
+.login-center {
+  margin: auto 0;
+  text-align: center; /* Centraliza texto dentro do container */
+}
+
+.login-logo img {
+  width: 50px;
+}
+
+.login-center h2 {
+  font-size: 3.5rem;
+}
+
+.login-center p {
+  font-weight: 400;
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+form input[type='email'],
+form input[type='password'],
+form input[type='text'] {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 0;
+  border-bottom: 1px solid black;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+form input:focus {
+  border-bottom: 2px solid #4caf50; /* Cor de foco */
+}
+
+.pass-input-div {
+  position: relative;
+}
+
+.pass-input-div svg {
+  font-size: 20px;
+  position: absolute;
+  right: 10px;
+  bottom: 35px;
+  cursor: pointer;
+  outline: none;
+}
+
+form button[type='button'],
+form button[type='submit'] {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 30px; /* Bordas arredondadas */
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.login-center-buttons {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.login-center-buttons button:nth-child(1) {
+  background-color: black;
+  color: white;
+  border: 3px solid black;
+}
+
+.login-center-buttons button:nth-child(1):hover {
+  color: #333;
+  background-color: white;
+}
+
+.login-center-buttons button:nth-child(2) {
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.login-center-buttons button:nth-child(2) img {
+  width: 30px;
+}
+
+.login-center-buttons button:nth-child(2):hover {
+  background-color: #c4c4c457;
+}
+
+.error-message {
+  color: #ff4d4d; /* Cor de erro mais suave */
+  font-weight: 500; /* Peso da fonte ajustado */
+  font-size: 1.4rem; /* Tamanho da fonte menor */
+  margin-top: 10px; /* Espaçamento acima da mensagem de erro */
+  background-color: rgba(255, 77, 77, 0.1); /* Fundo suave para destacar */
+  padding: 8px; /* Espaçamento interno */
+  border-radius: 5px; /* Bordas arredondadas */
+  display: inline-block; /* Permite controle de largura */
+}
+
+.login-bottom-p {
+  text-align: center;
+  font-size: 1.5rem;
+  padding-bottom: 40px;
+}
+
+.login-bottom-p a {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-bottom-p a:hover {
+  text-decoration: underline;
+}
