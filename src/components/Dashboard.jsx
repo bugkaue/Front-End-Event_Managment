@@ -1,57 +1,33 @@
+// Dashboard.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFetchEventos } from '../services/Eventos';
 import { useSubscribeEventos } from '../services/Inscricao';
 import { useAuth } from '../context/AuthContext';
-import { useMutation } from '@tanstack/react-query';
-import { logout } from '../services/Auth';
+import Navigation from '../components/Navigation'; // Importa o componente Navigation
 import '../styles/Dashboard.css';
 
 const Dashboard = () => {
-  const navigate = useNavigate();
   const { token, participante } = useAuth();
-  const { data: eventos, error: erroEventos } = useFetchEventos(token);
+  const { data: eventos } = useFetchEventos(token);
   
-  const [visibleEvents, setVisibleEvents] = useState(6); // Estado para controlar a quantidade de eventos visíveis
-
-  const { mutate: logoutFn } = useMutation({
-    mutationFn: logout,
-    onSuccess: () => {
-      localStorage.removeItem("jwtToken");
-      localStorage.removeItem("participanteId");
-      navigate("/");
-    },
-    onError: (error) => {
-      console.log("Erro ao fazer logout", error);
-    }
-  });
+  const [visibleEvents, setVisibleEvents] = useState(6);
 
   const { mutate: inscreverEvento } = useSubscribeEventos();
 
-  // Função para carregar mais eventos
   const loadMoreEvents = () => {
     setVisibleEvents((prev) => prev + 6);
   };
 
-   return (
+  console.log(participante);
+  return (
     <div>
-      <div className="navigation">
-        <h1>Dashboard</h1>
-        <div>
-          <button className="inscricoes-button" onClick={() => navigate('/inscricoes')}>
-            Inscrições
-          </button>
-          <p>Bem-vindo, {participante?.email}!</p>
-          <button className="logout-button" onClick={() => logoutFn()}>Logout</button>
-        </div>
-      </div>
-
       <div className="eventos-container">
         <h2 className="eventos-titulo">Eventos Disponíveis</h2>
         {eventos?.length > 0 ? (
           <>
             <div className="event-list">
-              {eventos.slice(0, visibleEvents).map((evento) => ( // Limita os eventos visíveis
+              {eventos.slice(0, visibleEvents).map((evento) => (
                 <div key={evento.id} className="event-item">
                   <h3>{evento.titulo}</h3>
                   <p><strong>Descrição:</strong> {evento.descricao}</p>
@@ -70,7 +46,7 @@ const Dashboard = () => {
                 </div>
               ))}
             </div>
-            {visibleEvents < eventos.length && ( // Verifica se há mais eventos para mostrar
+            {visibleEvents < eventos.length && (
               <button className="load-more-button" onClick={loadMoreEvents}>
                 Carregar mais eventos
               </button>
@@ -82,6 +58,6 @@ const Dashboard = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Dashboard;

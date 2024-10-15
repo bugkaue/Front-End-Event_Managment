@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 
 // Função para se inscrever em um evento
 const subscribeEvento = async ({ participanteId, eventoId }) => {
@@ -49,7 +50,8 @@ export const useFetchInscricoes = (token, participanteId, options = {}) => {
   return useQuery({
     queryKey: ["inscricoes", participanteId],
     queryFn: () => fetchInscricoes(token, participanteId),
-    enabled: !!token && !!participanteId,
+    enabled: !!token,
+    retry: 0,
     ...options,
   });
 };
@@ -57,16 +59,26 @@ export const useFetchInscricoes = (token, participanteId, options = {}) => {
 // Hook para remover inscrição
 export const useRemoveInscricao = (options = {}) => {
   const queryClient = useQueryClient(); // Obtendo a instância do queryClient
+  const {token} = useAuth()
 
   return useMutation({
-    mutationFn: ({ eventoId, participanteId, token }) => removeInscricao({ eventoId, participanteId, token }),
-    onSuccess: (data) => {
-      console.log("Inscrição cancelada com sucesso!", data);
-      queryClient.invalidateQueries(['inscricoes']); // Chamada correta
+    mutationFn: ({ eventoId, participanteId }) => removeInscricao({ eventoId, participanteId, token }),
+    onMutate: async (data) => {
+      await queryClient.cancelQueries(['inscricoes', data.participanteId]);
+
+      const previousInscricoes = queryClient.getQueryData(['inscricoes', data.participanteId]);
+
+      queryClient.setQueryData(['inscricoes', data.participanteId], (old) => {
+        return old.filter((inscricao) => inscricao.eventoId !== data.eventoId);
+      });
+
+      return { previousInscricoes };
     },
-    onError: (error, { eventoId, participanteId }) => {
-      console.log("Valores recebidos:", { eventoId, participanteId });
+    onError: (error) => {
       console.error("Erro ao cancelar a inscrição!", error);
+    },
+    onSettled: (_, __, variables) => {
+      queryClient.invalidateQueries(['inscricoes', variables.participanteId]);
     },
     ...options,
   });

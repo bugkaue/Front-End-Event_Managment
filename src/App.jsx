@@ -9,6 +9,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProvider } from "./context/AuthContext.jsx"; // Importando o AuthProvider
 import ProtectedRoute from "./ProtectedRoute"; // Importando o ProtectedRoute
 import Inscricoes from "./components/Inscricoes.jsx";
+import Layout from "./Layout.jsx";
 
 const queryClient = new QueryClient();
 
@@ -22,13 +23,18 @@ const router = createBrowserRouter([
         element: <SignUp />,
     },
     {
-        path: "/dashboard",
-        element: <ProtectedRoute element={<Dashboard />} />, // Usando o ProtectedRoute importado
-    },
-    {
-        path: "/inscricoes",
-        element: <ProtectedRoute element={<Inscricoes />} />, // Usando o ProtectedRoute importado
-    },
+        path: "/", element: <Layout />,
+        children: [
+            {
+                path: "/dashboard",
+                element: <ProtectedRoute element={<Dashboard />} />, // Usando o ProtectedRoute importado
+            },
+            {
+                path: "/inscricoes",
+                element: <ProtectedRoute element={<Inscricoes />} />, // Usando o ProtectedRoute importado
+            },
+        ]
+    }
 ]);
 
 function App() {

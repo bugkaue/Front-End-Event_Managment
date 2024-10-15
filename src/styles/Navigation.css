@@ -1,0 +1,47 @@
+/* styles/Navigation.css */
+.navigation {
+  background-color: #282c34; /* Cor de fundo escura para a navegação */
+  color: white; /* Cor do texto */
+  display: flex; /* Layout flexível para alinhar os itens */
+  justify-content: space-between; /* Espaço entre os itens */
+  align-items: center; /* Alinhamento centralizado verticalmente */
+  padding: 10px 20px; /* Espaçamento interno */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil na parte inferior */
+}
+
+.inscricoes-button {
+  background-color: #282c34; /* Cor de fundo escura */
+  color: white; /* Cor do texto */
+  border: none; /* Remove a borda */
+  padding: 10px 20px; /* Espaçamento interno */
+  border-radius: 5px; /* Bordas arredondadas */
+  cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
+  font-weight: bold; /* Texto em negrito */
+  margin-right: 15px; /* Espaço à direita do botão */
+}
+
+.logout-button {
+  background-color: #ff4d4f; /* Cor de fundo vermelha */
+  color: white; /* Cor do texto */
+  border: none; /* Remove a borda padrão */
+  padding: 10px 20px; /* Espaçamento interno */
+  border-radius: 8px; /* Bordas arredondadas */
+  cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
+  font-weight: bold; /* Texto em negrito */
+  transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+}
+
+.logout-button:hover {
+  background-color: #e04344; /* Cor mais escura ao passar o mouse */
+}
+
+.logout-button:focus {
+  outline: none; /* Remove a linha de foco padrão */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Adiciona um leve destaque ao botão quando focado */
+}
+
+.navigation div {
+  display: flex; /* Usando flexbox para alinhar os itens */
+  align-items: center; /* Centraliza verticalmente os itens */
+  gap: 10px; /* Espaçamento entre o texto e o botão */
+}

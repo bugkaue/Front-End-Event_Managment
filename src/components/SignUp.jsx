@@ -1,11 +1,9 @@
-// src/components/SignUp.js
 import React, { useState } from "react";
 import { redirect, useNavigate } from "react-router-dom";
 import Image from "../assets/image.png";
 import Logo from "../assets/logo.png";
 import GoogleSvg from "../assets/icons8-google.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import axios from "axios";
 import { useRegisterUser } from "../services/Auth";
 
 const SignUp = () => {
@@ -25,7 +23,7 @@ const SignUp = () => {
     const handleSignUp = async (e) => {
         e.preventDefault();
 
-        // Validações
+        // Validações ZOD React hook form
         if (password.length < 8) {
             setErrorMessage("A senha deve ter pelo menos 8 caracteres.");
             return;

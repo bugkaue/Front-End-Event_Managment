@@ -1,50 +1,45 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useFetchInscricoes } from '../services/Inscricao';
-import { useRemoveInscricao } from '../services/Inscricao'; // Importa o hook para remover inscrição
+import { useRemoveInscricao } from '../services/Inscricao';
+import Navigation from '../components/Navigation';
 
 const Inscricoes = () => {
   const { token, participante } = useAuth();
-  const { data: inscricoes, error: erroInscricoes, isLoading } = useFetchInscricoes(token, participante?.id);
-  const { mutate: removerInscricao } = useRemoveInscricao(); // Hook para cancelar inscrição
+  const { data: inscricoes, error, isLoading } = useFetchInscricoes(token, participante?.id);
+  const { mutate: removerInscricao } = useRemoveInscricao();
 
-  console.log("Inscrições carregadas: ", inscricoes);
-
-  // Verifica se a requisição está carregando
   if (isLoading) return <p>Carregando inscrições...</p>;
 
-  // Verifica se houve um erro na requisição
-  if (erroInscricoes) return <p>Erro ao carregar as inscrições: {erroInscricoes.message}</p>;
-
-  // Garante que 'inscricoes' é um array
-  const eventos = Array.isArray(inscricoes) ? inscricoes : [];
+  const hasSubscriptions = !!inscricoes?.length && !error;
 
   return (
-    <div className="inscricoes-container">
-      <h2>Eventos em que você está inscrito</h2>
+    <div>
+      <div className="inscricoes-container">
+        <h2>Eventos em que você está inscrito</h2>
 
-      <div className="eventos-list">
-        {eventos?.length > 0 ? (
-          eventos?.map((evento, index) => (
-            <div key={index} className="event-item">
-              <h3>{evento.titulo}</h3>
-              <p>{evento.descricao}</p>
-              <p>Data e Hora: {new Date(evento.dataHora).toLocaleString()}</p>
-              <p>Local: {evento.local}</p>
-              <p>Capacidade Máxima: {evento.capacidadeMaxima}</p>
-              <p>Evento ID: {evento.eventoId}</p>
+        <div className="eventos-list">
+          {hasSubscriptions ? (
+            inscricoes?.map((inscricao, index) => (
+              <div key={index} className="event-item">
+                <h3>{inscricao.titulo}</h3>
+                <p>{inscricao.descricao}</p>
+                <p>Data e Hora: {new Date(inscricao.dataHora).toLocaleString()}</p>
+                <p>Local: {inscricao.local}</p>
+                <p>Capacidade Máxima: {inscricao.capacidadeMaxima}</p>
 
-              <button onClick={() => removerInscricao({
-                eventoId: evento.eventoId, 
-                participanteId: participante.id
-              })}>
-                Cancelar Inscrição
-              </button>
-            </div>
-          ))
-        ) : (
-          <p>Você ainda não está inscrito em nenhum evento.</p>
-        )}
+                <button onClick={() => removerInscricao({
+                  eventoId: inscricao.eventoId, 
+                  participanteId: participante.id
+                })}>
+                  Cancelar Inscrição
+                </button>
+              </div>
+            ))
+          ) : (
+            <p>Você ainda não está inscrito em nenhum inscricoes.</p>
+          )}
+        </div>
       </div>
     </div>
   );
