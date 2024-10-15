@@ -23,6 +23,21 @@ body {
   font-weight: bold; /* Texto em negrito */
   margin-right: 15px; /* Espaço à direita do botão */
 }
+/* Botão quando o usuário está inscrito */
+.inscrito-button {
+  background-color: #ff4d4f !important; /* Cor vermelha para indicar que o usuário está inscrito */
+  color: white !important; /* Cor do texto */
+  border: none; /* Remove a borda padrão */
+  padding: 10px 15px; /* Espaçamento interno */
+  border-radius: 5px; /* Cantos arredondados */
+  cursor: not-allowed; /* Cursor alterado para indicar que o botão está desativado */
+  transition: background-color 0.3s ease; /* Efeito de transição */
+}
+
+.inscrito-button:hover {
+  background-color: #e04344 !important; /* Cor mais escura ao passar o mouse */
+}
+
 
 /* Estilo para a seção de eventos */
 .eventos-container {
@@ -49,6 +64,7 @@ body {
 }
 
 .eventos-titulo {
+  font-size: 1.5rem; /* Tamanho do título */
   margin-bottom: 20px; /* Espaço abaixo do título */
   text-align: center; /* Centraliza o texto */
 }
@@ -126,4 +142,11 @@ body {
 .logout-button:focus {
   outline: none; /* Remove a linha de foco padrão */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Adiciona um leve destaque ao botão quando focado */
+}
+
+/* styles/Dashboard.css */
+.custom-modal {
+    width: 500px; /* Ajuste a largura conforme necessário */
+    padding: 20px; /* Ajuste o padding para um espaço interno adequado */
+    font-size: 1.2em; /* Aumente o tamanho da fonte, se desejar */
 }
