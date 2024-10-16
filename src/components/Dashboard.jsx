@@ -34,40 +34,41 @@ const Dashboard = () => {
   };
 
   const handleInscrever = (eventoId) => {
-  Swal.fire({
-    title: 'Tem certeza?',
-    text: "Deseja se inscrever neste evento?",
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Sim, inscrever!',
-    cancelButtonText: 'Não, voltar!',
-    customClass: {
-      popup: 'custom-modal', // Adiciona a classe personalizada ao modal
-    },
-  }).then((result) => {
-    if (result.isConfirmed) {
-      inscreverEvento({
-        eventoId: eventoId,
-        participanteId: participante.id,
-      });
-      Swal.fire(
-        'Inscrito!',
-        'Você se inscreveu no evento com sucesso.',
-        'success',
-        {
-          customClass: {
-            popup: 'custom-modal', // Também pode aplicar ao modal de sucesso
-          },
-        }
-      );
-    }
-  });
-};
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: "Deseja se inscrever neste evento?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, inscrever!',
+      cancelButtonText: 'Não, voltar!',
+      customClass: {
+        popup: 'custom-modal', // Adiciona a classe personalizada ao modal
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        inscreverEvento({
+          eventoId: eventoId,
+          participanteId: participante.id,
+        });
+        Swal.fire(
+          'Inscrito!',
+          'Você se inscreveu no evento com sucesso.',
+          'success',
+          {
+            customClass: {
+              popup: 'custom-modal', // Também pode aplicar ao modal de sucesso
+            },
+          }
+        );
+      }
+    });
+  };
 
   return (
     <div>
+      <Navigation />
       <div className="eventos-container">
         <h2 className="eventos-titulo">Eventos Disponíveis</h2>
         {eventos?.length > 0 ? (
@@ -85,7 +86,7 @@ const Dashboard = () => {
                     <button
                       onClick={() => handleInscrever(evento.id)} // Chama a função de confirmação ao clicar
                       disabled={isInscrito(evento.id)} // Desabilita o botão se o usuário já estiver inscrito
-                      className={isInscrito(evento.id) ? 'inscrito-button' : 'inscricao-button'}
+                      className={isInscrito(evento.id) ? 'inscrito-button' : 'inscricao-button'} // Use a classe correta
                     >
                       {isInscrito(evento.id) ? 'Inscrito' : 'Inscrever-se'}
                     </button>

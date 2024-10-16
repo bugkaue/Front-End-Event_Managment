@@ -9,39 +9,59 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil na parte inferior */
 }
 
-.inscricoes-button {
+
+
+
+/* styles/Navigation.css */
+.sidebar {
+  position: fixed; /* Fixa a barra lateral na tela */
+  top: 0;
+  left: 0;
+  width: 240px; /* Largura da barra lateral */
+  height: 100vh; /* Ocupa a altura total da tela */
   background-color: #282c34; /* Cor de fundo escura */
   color: white; /* Cor do texto */
-  border: none; /* Remove a borda */
-  padding: 10px 20px; /* Espaçamento interno */
-  border-radius: 5px; /* Bordas arredondadas */
-  cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
-  font-weight: bold; /* Texto em negrito */
-  margin-right: 15px; /* Espaço à direita do botão */
+  display: flex;
+  flex-direction: column; /* Alinha os itens verticalmente */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Sombra sutil na lateral */
 }
 
-.logout-button {
-  background-color: #ff4d4f; /* Cor de fundo vermelha */
+.sidebar-logo {
+  display: flex;
+  justify-content: center; /* Centraliza a logo */
+  align-items: center;
+  margin-bottom: 20px; /* Espaço abaixo da logo */
+}
+
+.sidebar-logo img {
+  width: 120px; /* Tamanho da logo */
+}
+
+.welcome-message {
+  margin: 20px 0; /* Espaçamento acima e abaixo da mensagem */
+  text-align: center; /* Centraliza o texto */
+  font-size: 1.2rem; /* Aumenta o tamanho do texto */
+  color: white; /* Cor mais destacada para a mensagem */
+  background-color: #745c95; /* Fundo escuro para destacar a mensagem */
+  padding: 10px; /* Espaçamento interno */
+  border-radius: 8px; /* Bordas arredondadas para um visual mais elegante */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil para destacar */
+  font-weight: bold; /* Deixa o texto em negrito */
+}
+
+.sidebar-nav ul {
+  list-style: none; /* Remove os marcadores da lista */
+  padding: 0; /* Remove o padding da lista */
+}
+
+.sidebar-nav li {
+  margin: 15px 0; /* Espaçamento entre os itens do menu */
+}
+
+.sidebar-nav a {
+  text-decoration: none; /* Remove o sublinhado dos links */
   color: white; /* Cor do texto */
-  border: none; /* Remove a borda padrão */
-  padding: 10px 20px; /* Espaçamento interno */
-  border-radius: 8px; /* Bordas arredondadas */
-  cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
-  font-weight: bold; /* Texto em negrito */
-  transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+  font-size: 1.2rem; /* Tamanho do texto */
+  transition: color 0.3s ease; /* Transição suave para a cor */
 }
 
-.logout-button:hover {
-  background-color: #e04344; /* Cor mais escura ao passar o mouse */
-}
-
-.logout-button:focus {
-  outline: none; /* Remove a linha de foco padrão */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Adiciona um leve destaque ao botão quando focado */
-}
-
-.navigation div {
-  display: flex; /* Usando flexbox para alinhar os itens */
-  align-items: center; /* Centraliza verticalmente os itens */
-  gap: 10px; /* Espaçamento entre o texto e o botão */
-}

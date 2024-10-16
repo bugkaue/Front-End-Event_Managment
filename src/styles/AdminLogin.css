@@ -5,8 +5,32 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(to bottom, #0f182b, #182848);
+    background: linear-gradient(200deg, #62638d, #101238); /* Gradiente de fundo */
     font-family: Arial, sans-serif;
+}
+
+/* Estilo para o container da imagem */
+.admin-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #101238; /* Cor de fundo para destacar a imagem */
+    padding: 20px;
+}
+
+.admin-image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px; /* Bordas arredondadas para a imagem */
+}
+
+/* Linha divisória entre a imagem e o formulário de login */
+.admin-divider {
+    width: 2px;
+    background-color: #ddd;
+    height: 60%; /* Ajuste conforme necessário */
+    margin: 0 20px; /* Espaçamento entre a imagem e o formulário */
 }
 
 .admin-login-box {
@@ -15,6 +39,16 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 350px;
+    text-align: center;
+}
+
+.error-message {
+    color: #ff4d4d; /* Cor de erro em vermelho */
+    font-size: 14px;
+    margin-top: 10px;
+    background-color: rgba(255, 77, 77, 0.1); /* Fundo claro para destacar a mensagem */
+    padding: 8px;
+    border-radius: 5px;
     text-align: center;
 }
 

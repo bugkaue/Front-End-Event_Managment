@@ -1,10 +1,10 @@
-// components/Navigation.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { logout } from '../services/Auth';
 import { useAuth } from '../context/AuthContext';
 import '../styles/Navigation.css';
+import logoImage from '../assets/logo.png';
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -23,16 +23,22 @@ const Navigation = () => {
   });
 
   return (
-    <div className="navigation">
-      <h1 onClick={() => navigate('/dashboard')} style={{ cursor: 'pointer' }}>Dashboard</h1> {/* Faz o título ser clicável */}
-      <div>
-        <button className="inscricoes-button" onClick={() => navigate('/inscricoes')}>
-          Inscrições
-        </button>
-        <p>Bem-vindo, {participante?.email}!</p>
-        <button className="logout-button" onClick={() => logoutFn()}>Logout</button>
+    <aside className="sidebar">
+      <div className="sidebar-logo">
+        <img src={logoImage} alt="Logo" />
       </div>
-    </div>
+      <div className="welcome-message">
+        <p>Bem-vindo, {participante?.email}!</p>
+      </div>
+      <nav className="sidebar-nav">
+        <ul>
+          <li><a href="#" onClick={() => navigate('/dashboard')}>Dashboard</a></li>
+          <li><a href="#" onClick={() => navigate('/inscricoes')}>Inscrições</a></li>
+          <li><a href="#">Configurações</a></li>
+          <li><a href="#" onClick={() => logoutFn()}>Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
   );
 };
 

@@ -1,0 +1,54 @@
+/* Estilo para o contêiner principal do dashboard */
+.dashboard-container {
+  display: flex;
+  height: 100vh; /* Ocupar toda a altura da janela */
+}
+
+/* Estilo para a barra lateral */
+.sidebar {
+  background: linear-gradient(200deg, #62638d, #101238); /* Gradiente de fundo */
+  width: 250px; /* Largura fixa da barra lateral */
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Estilo para a logo na barra lateral */
+.sidebar-logo img {
+  width: 150px; /* Ajuste o tamanho da logo conforme necessário */
+  margin-bottom: 20px;
+}
+
+/* Estilo para os itens de navegação */
+.sidebar-nav ul {
+  list-style-type: none; /* Remove os marcadores das listas */
+  padding: 0;
+  width: 100%;
+}
+
+.sidebar-nav ul li {
+  margin: 15px 0; /* Espaçamento entre os itens */
+}
+
+.sidebar-nav ul li a {
+  text-decoration: none; /* Remove o sublinhado dos links */
+  color: #fff; /* Cor do texto */
+  font-size: 1.2rem; /* Tamanho do texto */
+  display: block;
+  padding: 10px;
+  border-radius: 5px; /* Bordas arredondadas para o item */
+  transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+}
+
+.sidebar-nav ul li a:hover {
+  background-color: #282e54; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilo para o conteúdo principal */
+.content {
+  flex: 1; /* O conteúdo principal ocupa o restante do espaço */
+  padding: 20px;
+  background-color: #f4f4f4; /* Cor de fundo do conteúdo */
+}

@@ -22,7 +22,7 @@ body {
 .login-left {
   flex-grow: 1;
   height: 100vh;
-  background: linear-gradient(45deg, #0f182b, #182848); /* Gradiente linear para a seção esquerda */
+  background: linear-gradient(200deg, #0a0c26, #0e0f22); /* Gradiente linear para a seção direita */background-color: #191a4b;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,6 +40,7 @@ body {
 .login-right-container {
   height: 100%;
   background: linear-gradient(135deg, #191a4b, #101238); /* Gradiente linear para a seção direita */background-color: #191a4b;
+  background: linear-gradient(200deg, #62638d, #101238); /* Gradiente linear para a seção direita */background-color: #191a4b;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -62,7 +63,7 @@ body {
 }
 
 .login-logo img {
-  width: 50px;
+  width: 300px;
 }
 
 .login-center h2 {
