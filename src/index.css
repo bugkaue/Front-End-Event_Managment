@@ -22,14 +22,14 @@ body {
 .login-left {
   flex-grow: 1;
   height: 100vh;
-  background-color: #e9e9e9;
+  background: linear-gradient(45deg, #0f182b, #182848); /* Gradiente linear para a seção esquerda */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .login-left img {
-  width: 400px;
+  width: 800px;
 }
 
 .login-right {
@@ -39,8 +39,7 @@ body {
 
 .login-right-container {
   height: 100%;
-  width: 80%;
-  margin: 0 auto;
+  background: linear-gradient(135deg, #191a4b, #101238); /* Gradiente linear para a seção direita */background-color: #191a4b;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -57,6 +56,7 @@ body {
 }
 
 .login-center {
+  color: white;
   margin: auto 0;
   text-align: center; /* Centraliza texto dentro do container */
 }
@@ -75,40 +75,151 @@ body {
   margin-bottom: 40px;
 }
 
-form input[type='email'],
-form input[type='password'],
-form input[type='text'] {
-  width: 100%;
-  padding: 16px;
-  margin-bottom: 16px;
-  border: 0;
-  border-bottom: 1px solid black;
-  outline: none;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
+.input-container {
+  position: relative; /* Para posicionar o label em relação ao input */
+  margin-bottom: 16px; /* Espaço entre os campos */
 }
 
-form input:focus {
-  border-bottom: 2px solid #4caf50; /* Cor de foco */
+.input-container label {
+  position: absolute; /* Para permitir a movimentação do label */
+  left: 10px; /* Distância da esquerda */
+  padding-top: 19px;
+  display: flex;
+  margin-left: 35%;
+  top: 25%; /* Centraliza verticalmente em relação ao input */
+  transform: translateY(-50%); /* Ajusta para ficar centralizado */
+
+  font-size: 1.6rem; /* Tamanho do texto */
+  color: #ae8585; /* Cor do label */
+  transition: 0.2s ease all; /* Efeito de transição suave */
 }
 
-.pass-input-div {
-  position: relative;
+.input-container input {
+  border: none; /* Remove a borda padrão */
+  outline: none; /* Remove o contorno ao focar */
+  padding: 10px 0; /* Espaçamento interno */
+  width: 30%; /* Largura do input */
+  margin: 0; /* Remove a margem */
+  display: flex;
+  margin-left: 35%;
+  background-color: transparent; /* Fundo transparente */
+  font-size: 1.6rem; /* Tamanho da fonte */
+  color: #fff; /* Cor do texto do input */
 }
 
-.pass-input-div svg {
-  font-size: 20px;
+/* Linha embaixo do input */
+.input-line {
+  width: 30%;
+  height: 2px;
+  display: flex;
+  margin-left: 35%;
+  background-color: #ccc; /* Cor da linha embaixo */
+  position: absolute; /* Para posicionar a linha abaixo do input */
+  bottom: -4px; /* Distância do bottom */
+  left: 0; /* Alinha à esquerda */
+}
+
+/* Efeito ao focar no input */
+input:focus + label,
+input:not(:placeholder-shown) + label {
+  top: -50; /* Move o label para cima */
+  left: 30%; /* Mantém à esquerda */
+  display: flex;
+  font-size: 1.2rem; /* Tamanho menor ao subir */
+  margin-left: 1%;
+}
+
+/* Estilo do Remember me */
+.remember-div {
+  display: flex;
+  align-items: center; /* Alinha verticalmente */
+  justify-content: flex-start; /* Alinha horizontalmente com o checkbox */
+  margin-left: 35%;
+  margin-bottom: 16px; /* Espaço abaixo do botão */
+  gap: 10px; /* Espaçamento entre o checkbox e o texto */
+}
+
+/* Estilo do checkbox */
+.remember-div input[type="checkbox"] {
+  appearance: none; /* Remove o estilo padrão do checkbox */
+  width: 20px; /* Tamanho do checkbox */
+  height: 20px; /* Tamanho do checkbox */
+  border: 2px solid #ccc; /* Borda padrão */
+  border-radius: 4px; /* Bordas arredondadas */
+  cursor: pointer; /* Muda o cursor para indicar que é clicável */
+  background-color: #191a4b; /* Fundo do checkbox quando não selecionado */
+  position: relative; /* Para posicionar o ícone de check corretamente */
+}
+
+/* Estilo do checkbox quando selecionado */
+.remember-div input[type="checkbox"]:checked {
+  background-color: #101238; /* Cor de fundo quando selecionado */
+}
+
+/* Ícone de check que aparece quando selecionado */
+.remember-div input[type="checkbox"]:checked::after {
+  content: "✓"; /* Adiciona um checkmark */
+  position: absolute; /* Posiciona em relação ao checkbox */
+  top: 50%; /* Centraliza verticalmente */
+  left: 50%; /* Centraliza horizontalmente */
+  transform: translate(-50%, -50%); /* Ajusta a posição */
+  color: #fff; /* Cor do checkmark */
+  font-size: 14px; /* Tamanho do checkmark */
+}
+
+
+.password-toggle-icon {
   position: absolute;
-  right: 10px;
-  bottom: 35px;
-  cursor: pointer;
-  outline: none;
+  right: 5%; /* Posiciona o ícone à direita do campo de senha */
+  left: 60%;
+  top: 50%; /* Centraliza verticalmente */
+  transform: translateY(-50%); /* Ajuste para centralizar corretamente */
+  cursor: pointer; /* Mostra que é clicável */
+  color: #ae8585; /* Cor do ícone */
+  font-size: 1.6rem; /* Tamanho do ícone */
 }
+
+.password-toggle-icon {
+  font-size: 2rem; /* Ajuste o tamanho do ícone com base no tamanho do texto */
+}
+
+
+/* Remove o fundo de preenchimento automático */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #191a4b inset !important; /* Altere #191a4b para a cor do seu fundo */
+  -webkit-text-fill-color: #fff !important; /* Cor do texto ao preencher automaticamente */
+  transition: background-color 5000s ease-in-out 0s; /* Remove a transição para preenchimento automático */
+}
+
+.login-center-options {
+  display: inline-flex;
+  justify-content: space-between; /* Espaça os elementos horizontalmente */
+  width: 50%; /* Ajuste conforme necessário para controlar o espaço disponível */
+  margin-left: 18%;
+}
+
+.forgot-pass-link {
+  color: #fff; /* Cor do texto do link */
+  text-decoration: dotted; /* Remove sublinhado */
+  font-size: 1.4rem; /* Tamanho do texto */
+}
+
+.forgot-pass-link:hover {
+  text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+}
+
 
 form button[type='button'],
 form button[type='submit'] {
-  width: 100%;
+  width: 30%;
+  justify-content: center;
   padding: 16px;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
   border: none;
   border-radius: 30px; /* Bordas arredondadas */
   font-size: 16px;
@@ -125,14 +236,13 @@ form button[type='submit'] {
 }
 
 .login-center-buttons button:nth-child(1) {
-  background-color: black;
+  background-color: #3510ac;
   color: white;
-  border: 3px solid black;
 }
 
 .login-center-buttons button:nth-child(1):hover {
-  color: #333;
-  background-color: white;
+  color: white;
+  background-color: #332366;
 }
 
 .login-center-buttons button:nth-child(2) {
@@ -154,9 +264,7 @@ form button[type='submit'] {
 .error-message {
   color: #ff4d4d; /* Cor de erro mais suave */
   font-weight: 500; /* Peso da fonte ajustado */
-  font-size: 1.4rem; /* Tamanho da fonte menor */
   margin-top: 10px; /* Espaçamento acima da mensagem de erro */
-  background-color: rgba(255, 77, 77, 0.1); /* Fundo suave para destacar */
   padding: 8px; /* Espaçamento interno */
   border-radius: 5px; /* Bordas arredondadas */
   display: inline-block; /* Permite controle de largura */
@@ -164,6 +272,7 @@ form button[type='submit'] {
 
 .login-bottom-p {
   text-align: center;
+  color: white;
   font-size: 1.5rem;
   padding-bottom: 40px;
 }

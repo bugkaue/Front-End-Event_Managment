@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
         if (token) {
             setToken(token)
             setIsAuthenticated(true);
+            
         }
     }, []);
 

@@ -13,7 +13,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const { mutateAsync: login, isPending } = useLogin()
+  const { mutateAsync: login, isPending } = useLogin();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -30,8 +30,9 @@ const Login = () => {
 
     setErrorMessage(""); // Limpa qualquer mensagem de erro anterior
 
-    login({ email, password })
+    login({ email, password });
   };
+
   return (
     <div className="login-main">
       <div className="login-left">
@@ -46,30 +47,41 @@ const Login = () => {
             <h2>Welcome back!</h2>
             <p>Please enter your details</p>
             <form onSubmit={handleLogin}>
-              <input
-                type="text"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <div className="pass-input-div">
+              <div className="input-container">
+                <input
+                  type="text"
+                  id="email"
+                  placeholder=" " // Placeholder vazio para que o label funcione
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <label htmlFor="email">E-mail</label>
+                <div className="input-line"></div>
+              </div>
+
+              <div className="input-container pass-input-div">
                 <input
                   type={showPassword ? "text" : "password"}
-                  placeholder="Password"
+                  id="password"
+                  placeholder=" " // Placeholder vazio para que o label funcione
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
+                <label htmlFor="password">Senha</label>
+                <div className="input-line"></div>
+
+                {/* Ícone de olho para mostrar/ocultar senha */}
                 {showPassword ? (
                   <FaEyeSlash
+                    className="password-toggle-icon"
                     onClick={() => setShowPassword(!showPassword)}
-                    aria-label="Hide password"
                   />
                 ) : (
                   <FaEye
+                    className="password-toggle-icon"
                     onClick={() => setShowPassword(!showPassword)}
-                    aria-label="Show password"
                   />
                 )}
               </div>
@@ -79,7 +91,7 @@ const Login = () => {
               <div className="login-center-options">
                 <div className="remember-div">
                   <input type="checkbox" id="remember-checkbox" />
-                  <label htmlFor="remember-checkbox">Remember for 30 days</label>
+                  <label htmlFor="remember-checkbox">Remember-Me</label>
                 </div>
                 <a
                   href="#"
@@ -89,6 +101,7 @@ const Login = () => {
                   Forgot password?
                 </a>
               </div>
+
               <div className="login-center-buttons">
                 <button type="submit" disabled={isPending}>
                   {isPending ? "Logging in..." : "Log In"}

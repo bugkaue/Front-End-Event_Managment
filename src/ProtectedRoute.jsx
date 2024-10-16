@@ -1,10 +1,15 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-const ProtectedRoute = ({ element }) => {
-  const token = localStorage.getItem('jwtToken'); // Verifica se o token está presente
+const ProtectedAdminRoute = ({ element }) => {
+  const token = localStorage.getItem('jwtToken');
+  const userRole = localStorage.getItem('userRole');
 
-  return token ? element : <Navigate to="/" />; // Se o token existir, renderiza o elemento, caso contrário redireciona
+  if (!token) {
+    return <Navigate to="/" />;
+  }
+
+  return element;
 };
 
-export default ProtectedRoute;
+export default ProtectedAdminRoute;

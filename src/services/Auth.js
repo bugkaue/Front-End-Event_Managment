@@ -83,7 +83,11 @@ export const useLogin = (options = {}) => {
             localStorage.setItem('jwtToken', data.token);
             localStorage.setItem("participanteId", data.participanteId)
 
-            navigate("/dashboard")
+            console.log("Login bem-sucedido:", data);
+
+            // Redireciona com base na role do usuário
+                navigate("/dashboard");
+            window.location.reload();  // Recarrega a página
         },
         onError: (error) => {
             console.error("Erro ao fazer o login", error);
