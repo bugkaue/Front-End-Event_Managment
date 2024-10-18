@@ -37,11 +37,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "dashboard",
-                element: <ProtectedAdminRout roles={['User']} element={<Dashboard />} />,
+                element: <ProtectedRoute roles={['User']} element={<Dashboard />} />,
             },
             {
                 path: "inscricoes",
-                element: <ProtectedAdminRout roles={['User']} element={<Inscricoes />} />,
+                element: <ProtectedRoute roles={['User']} element={<Inscricoes />} />,
             },
         ],
     },
@@ -51,11 +51,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/admin-dashboard",
-                element: <ProtectedRoute roles={['Admin']} element={<AdminDashboard />} />,
+                element: <ProtectedAdminRout roles={['Admin']} element={<AdminDashboard />} />,
             },
             {
                 path: "/usuarios", // Nova rota para a página de usuários
-                element: <ProtectedRoute roles={['Admin']} element={<Usuarios />} />, // Protegendo a rota para administradores
+                element: <ProtectedAdminRout roles={['Admin']} element={<Usuarios />} />, // Protegendo a rota para administradores
             },
         ],
     },

@@ -5,9 +5,8 @@ const ProtectedAdminRoute = ({ element }) => {
   const token = localStorage.getItem('jwtToken');
   const userRole = localStorage.getItem('userRole');
 
-  // Verifica se o token existe e se o usuário tem a role de "Admin"
-  if (!token || userRole !== 'Admin') {
-    return <Navigate to="/" />;
+  if (!token && userRole !== '1') {
+    return <Navigate to="/admin-login" />;
   }
 
   return element;
