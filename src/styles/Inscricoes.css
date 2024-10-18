@@ -5,11 +5,11 @@
 }
 
 .event-item {
-  border: 2px solid #ccc; /* Borda */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra leve */
   border-radius: 8px; /* Bordas arredondadas */
   padding: 16px; /* Espaçamento interno */
   transition: transform 0.3s, box-shadow 0.3s; /* Transição suave para o zoom e sombra */
-  width: 200px; /* Largura fixa ou ajuste conforme necessário */
+  width: 300px; /* Largura fixa ou ajuste conforme necessário */
 }
 
 .event-item:hover {

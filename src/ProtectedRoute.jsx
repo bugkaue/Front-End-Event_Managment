@@ -1,9 +1,8 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-const ProtectedAdminRoute = ({ element }) => {
+const ProtectedRoute = ({ element }) => {
   const token = localStorage.getItem('jwtToken');
-  const userRole = localStorage.getItem('userRole');
 
   if (!token) {
     return <Navigate to="/" />;
@@ -12,4 +11,4 @@ const ProtectedAdminRoute = ({ element }) => {
   return element;
 };
 
-export default ProtectedAdminRoute;
+export default ProtectedRoute;

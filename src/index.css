@@ -10,10 +10,6 @@ html {
   font-size: 10px;
 }
 
-body {
-  font-family: "Poppins", sans-serif;
-  height: 100vh;
-}
 
 .login-main {
   display: flex;

@@ -67,7 +67,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
+    <div className='dashboard-container'>
       <Navigation />
       <div className="eventos-container">
         <h2 className="eventos-titulo">Eventos Disponíveis</h2>

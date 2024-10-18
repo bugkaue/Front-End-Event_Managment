@@ -1,15 +1,14 @@
 body {
-  height: 100%; /* Garante que o body e html ocupem 100% da altura */
+  
   background: linear-gradient(200deg, #0a0c26, #0e0f22); /* Gradiente linear para a seção direita */background-color: #191a4b;
   margin: 0; /* Remove margens padrão */
 }
 
 /* Estilo para a seção de eventos */
 .eventos-container {
-  width: 90%; /* Ajuste a largura conforme necessário */
   margin-left: auto;
   margin-right: auto;
-  max-width: 900px; /* Limita a largura máxima do container */
+  max-width: 980px; /* Limita a largura máxima do container */
   height: auto; /* Altura automática para permitir conteúdo flexível */
   padding: 20px; /* Espaçamento interno do container de eventos */
   margin-top: 20px; /* Espaçamento superior do container de eventos */
@@ -49,13 +48,19 @@ body {
 
 
 .event-item p {
-  font-size: 1.2rem; /* Aumenta o tamanho da fonte */
+  font-size: 1.5rem; /* Aumenta o tamanho da fonte */
+  color: white;
   margin: 5px 0; /* Adiciona um espaço entre os parágrafos */
 }
 
 .event-item strong {
-  font-size: 1.2rem; /* Aumenta o tamanho da fonte do texto em negrito */
+  font-size: 1.5rem; /* Aumenta o tamanho da fonte do texto em negrito */
   color: #007bff; /* Opcional: muda a cor do texto em negrito */
+}
+
+.event-item h3 {
+  font-size: 1.6rem ;
+  color: white;
 }
 
 .eventos-titulo {
@@ -72,12 +77,13 @@ body {
 }
 
 .event-item {
+  background-color: rgba(255, 255, 255, 0.1); /* Fundo levemente transparente */
   padding: 15px; /* Espaçamento interno dos itens */
-  border: 1px solid #ccc; /* Borda ao redor dos itens */
-  border-radius: 5px; /* Bordas arredondadas */
-  background-color: #ffffffa6; /* Cor de fundo */
+  border-radius: 8px; /* Bordas arredondadas */
   text-align: center; /* Centraliza o texto dentro do item */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra leve */
 }
+
 .load-more-button {
   display: block; /* Faz o botão ocupar toda a largura */
   margin: 20px auto; /* Centraliza o botão */

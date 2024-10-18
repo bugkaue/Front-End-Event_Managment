@@ -6,12 +6,15 @@ import AdminLogin from "./components/AdminLogin";
 import SignUp from "./components/SignUp.jsx";
 import Dashboard from "./components/Dashboard";
 import AdminDashboard from "./components/AdminDashboard.jsx";
+import Usuarios from "./components/Usuarios"; // Importe o novo componente de Usuários
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import ProtectedRoute from "../src/ProtectedRoute.jsx";
+import ProtectedAdminRout from "../src/ProtectedAdminRoute.jsx";
 import Inscricoes from "./components/Inscricoes.jsx";
 import Layout from "./Layout.jsx";
+import LayoutAdmin from "./LayoutAdm.jsx";
 
 const queryClient = new QueryClient();
 
@@ -33,18 +36,28 @@ const router = createBrowserRouter([
         element: <Layout />,
         children: [
             {
-                path: "/dashboard",
-                element: <ProtectedRoute roles={['User']} element={<Dashboard />} />,
+                path: "dashboard",
+                element: <ProtectedAdminRout roles={['User']} element={<Dashboard />} />,
             },
             {
-                path: "/inscricoes",
-                element: <ProtectedRoute roles={['User']} element={<Inscricoes />} />,
+                path: "inscricoes",
+                element: <ProtectedAdminRout roles={['User']} element={<Inscricoes />} />,
             },
         ],
     },
     {
-        path: "/admin-dashboard",
-        element: <ProtectedRoute roles={['Admin']} element={<AdminDashboard />} />,
+        path: "/",
+        element: <LayoutAdmin />,
+        children: [
+            {
+                path: "/admin-dashboard",
+                element: <ProtectedRoute roles={['Admin']} element={<AdminDashboard />} />,
+            },
+            {
+                path: "/usuarios", // Nova rota para a página de usuários
+                element: <ProtectedRoute roles={['Admin']} element={<Usuarios />} />, // Protegendo a rota para administradores
+            },
+        ],
     },
 ]);
 
