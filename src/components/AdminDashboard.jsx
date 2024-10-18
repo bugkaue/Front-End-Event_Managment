@@ -2,7 +2,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Importe o hook useNavigate do React Router
 import '../styles/adminDashboard.css';
-import AdminNavigation from './AdminNavigation';
 import { useFetchUserCount } from '../services/Usuarios.js';
 import { useFetchEventosCount } from '../services/Usuarios.js';
 import { FaUser, FaCalendarAlt } from 'react-icons/fa';

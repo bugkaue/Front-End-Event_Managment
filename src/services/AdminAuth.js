@@ -12,6 +12,30 @@ const loginAdmin = async ({ email, password }) => {
     return response.data;
 };
 
+const logoutAdmin = async () => {
+    const response = await connector.post("/Account/logout");
+    return response.data;
+};
+
+export const useAuthLogout = () => {
+    const navigate = useNavigate();
+
+    return useMutation({
+        mutationFn: logoutAdmin,
+        onSuccess: () => {
+            // Remove os dados do localStorage
+            localStorage.removeItem('jwtToken');
+            localStorage.removeItem('participanteId');
+            
+            // Redireciona para a página de login
+            navigate('/admin-login');
+            console.log("Logout realizado com sucesso.");
+        },
+        onError: (error) => {
+            console.error("Erro ao fazer logout:", error);
+        }
+    });
+};
 
 export const useAdminLogin = (options = {}) => {
     const navigate = useNavigate();

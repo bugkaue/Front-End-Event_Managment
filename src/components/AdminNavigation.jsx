@@ -3,10 +3,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Importando useNavigate
 import '../styles/AdminNavigation.css';
 import logoImage from '../assets/logo.png';
+import { useAuthLogout } from '../services/AdminAuth'; 
 
 const AdminNavigation = () => {
   const navigate = useNavigate(); // Hook para navegação
-
+  const { mutate: logoutFn } = useAuthLogout();   
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
@@ -18,7 +19,7 @@ const AdminNavigation = () => {
           <li><a href="#">Gerenciar Eventos</a></li>
           <li><a href="#" onClick={() => navigate('/usuarios')}>Usuários</a></li>
           <li><a href="#">Configurações</a></li>
-          <li><a href="#">Sair</a></li>
+          <li><a href="#" onClick={() => logoutFn()}>Sair</a></li>
         </ul>
       </nav>
     </aside>
