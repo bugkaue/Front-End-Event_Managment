@@ -16,8 +16,8 @@ const AdminNavigation = () => {
       <nav className="sidebar-nav">
         <ul>
           <li><a href="#" onClick={() => navigate('/admin-dashboard')}>Dashboard</a></li>
-          <li><a href="#">Gerenciar Eventos</a></li>
           <li><a href="#" onClick={() => navigate('/usuarios')}>Usuários</a></li>
+          <li><a href="#" onClick={() => navigate('/gerencia-eventos')}>Gerenciar Eventos</a></li>
           <li><a href="#">Configurações</a></li>
           <li><a href="#" onClick={() => logoutFn()}>Sair</a></li>
         </ul>

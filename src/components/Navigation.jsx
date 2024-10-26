@@ -34,7 +34,6 @@ const Navigation = () => {
         <ul>
           <li><a href="#" onClick={() => navigate('/dashboard')}>Dashboard</a></li>
           <li><a href="#" onClick={() => navigate('/inscricoes')}>Inscrições</a></li>
-          <li><a href="#">Configurações</a></li>
           <li><a href="#" onClick={() => logoutFn()}>Logout</a></li>
         </ul>
       </nav>

@@ -1,0 +1,60 @@
+.eventosContainer {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4%;
+  height: 100%;
+  color: white;
+  width: 100vh;
+}
+
+.eventosLista {
+  display: flex;
+  flex-direction: column;
+}
+
+.eventoItem {
+  display: flex;
+  flex-direction: column; /* Alterado para coluna para melhor visualização */
+  margin-top: 2vh;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease;
+  background-color: #1a1a1a; /* Cor de fundo para contraste */
+}
+
+.eventoItem:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.eventoAcoes {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px; /* Espaçamento entre as informações do evento e os botões */
+}
+
+.editButton, .deleteButton {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.editButton {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.editButton:hover {
+  background-color: #0056b3;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}

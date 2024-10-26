@@ -30,6 +30,13 @@ body {
   background-color: #218838; /* Cor mais escura ao passar o mouse */
 }
 
+.eventos-container p {
+  color: rgb(255, 0, 0);
+  font-size: 1.5rem; /* Tamanho do título */
+  margin-bottom: 20px; /* Espaço abaixo do título */
+  text-align: center; 
+}
+
 /* Estilo para o botão quando o usuário está inscrito */
 .inscrito-button {
   background-color: #ff4d4f !important; /* Cor vermelha para indicar que o usuário está inscrito */

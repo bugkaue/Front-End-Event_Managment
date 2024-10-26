@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./components/Login";
@@ -6,12 +5,13 @@ import AdminLogin from "./components/AdminLogin";
 import SignUp from "./components/SignUp.jsx";
 import Dashboard from "./components/Dashboard";
 import AdminDashboard from "./components/AdminDashboard.jsx";
-import Usuarios from "./components/Usuarios"; // Importe o novo componente de Usuários
+import Usuarios from "./components/AdminUsuarios.jsx";
+import GerenciarEventos from "./components/AdminEventos.jsx"; 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import ProtectedRoute from "../src/ProtectedRoute.jsx";
-import ProtectedAdminRout from "../src/ProtectedAdminRoute.jsx";
+import ProtectedAdminRoute from "../src/ProtectedAdminRoute.jsx";
 import Inscricoes from "./components/Inscricoes.jsx";
 import Layout from "./Layout.jsx";
 import LayoutAdmin from "./LayoutAdm.jsx";
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/admin-login",
-        element: <AdminLogin />, // Página de login para administradores
+        element: <AdminLogin />, 
     },
     {
         path: "/signup",
@@ -46,17 +46,21 @@ const router = createBrowserRouter([
         ],
     },
     {
-        path: "/",
+        path: "/",  // Adicione um caminho comum para rotas do admin
         element: <LayoutAdmin />,
         children: [
             {
-                path: "/admin-dashboard",
-                element: <ProtectedAdminRout roles={['Admin']} element={<AdminDashboard />} />,
+                path: "admin-dashboard",
+                element: <ProtectedAdminRoute roles={['Admin']} element={<AdminDashboard />} />,
             },
             {
-                path: "/usuarios", // Nova rota para a página de usuários
-                element: <ProtectedAdminRout roles={['Admin']} element={<Usuarios />} />, // Protegendo a rota para administradores
+                path: "usuarios", 
+                element: <ProtectedAdminRoute roles={['Admin']} element={<Usuarios />} />, 
             },
+            {
+                path: "gerencia-eventos",  
+                element: <ProtectedAdminRoute roles={['Admin']} element={<GerenciarEventos />} />,
+            }
         ],
     },
 ]);
