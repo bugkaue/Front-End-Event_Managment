@@ -40,7 +40,9 @@ const AdminDashboard = () => {
               <h3>Total de Eventos Cadastrados: {eventosCount}</h3>
             </div>
             <hr className="card-divider" />
-            <button className="details-button">
+            <button 
+            className="details-button"
+            onClick={() => navigate('/gerencia-eventos')} >
               <span>Show details</span>
               <span className="details-arrow">&#x25B6;</span> {/* Setinha separada */}
             </button>
