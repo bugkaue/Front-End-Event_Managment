@@ -1,98 +1,12 @@
 /* 
 body {
   
-  background: linear-gradient(200deg, #0a0c26, #0e0f22); /* Gradiente linear para a seção direita */background-color: #191a4b;
+  background: linear-gradient(200deg, #0a0c26, #0e0f22); /* Gradiente linear para a seção direita *
   /* Remove margens padrão 
 }
 */
 
 /* Estilo para a seção de eventos */
-.eventos-container {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 980px; /* Limita a largura máxima do container */
-  height: auto; /* Altura automática para permitir conteúdo flexível */
-  padding: 20px; /* Espaçamento interno do container de eventos */
-  margin-top: 20px; /* Espaçamento superior do container de eventos */
-  border-radius: 10px; /* Bordas arredondadas */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra opcional para destaque */
-}
-
-/* Botão de inscrição para eventos */
-.event-item button {
-  background-color: #28a745; /* Cor verde para o botão de inscrição */
-  color: white; /* Cor do texto */
-  border: none; /* Remove a borda padrão */
-  padding: 10px 15px; /* Espaçamento interno */
-  border-radius: 5px; /* Cantos arredondados */
-  cursor: pointer; /* Mostra que é clicável */
-  transition: background-color 0.3s ease; /* Efeito de transição */
-}
-.event-item button:hover {
-  background-color: #218838; /* Cor mais escura ao passar o mouse */
-}
-
-.eventos-container p {
-  color: rgb(255, 0, 0);
-  font-size: 1.5rem; /* Tamanho do título */
-  margin-bottom: 20px; /* Espaço abaixo do título */
-  text-align: center; 
-}
-
-/* Estilo para o botão quando o usuário está inscrito */
-.inscrito-button {
-  background-color: #ff4d4f !important; /* Cor vermelha para indicar que o usuário está inscrito */
-  color: white !important; /* Cor do texto */
-  border: none; /* Remove a borda padrão */
-  padding: 10px 15px; /* Espaçamento interno */
-  border-radius: 5px; /* Cantos arredondados */
-  cursor: not-allowed; /* Cursor alterado para indicar que o botão está desativado */
-  transition: background-color 0.3s ease; /* Efeito de transição */
-}
-
-.inscrito-button:hover {
-  background-color: #e04344 !important; /* Cor mais escura ao passar o mouse */
-}
-
-
-
-.event-item p {
-  font-size: 1.5rem; /* Aumenta o tamanho da fonte */
-  color: white;
-  margin: 5px 0; /* Adiciona um espaço entre os parágrafos */
-}
-
-.event-item strong {
-  font-size: 1.5rem; /* Aumenta o tamanho da fonte do texto em negrito */
-  color: #007bff; /* Opcional: muda a cor do texto em negrito */
-}
-
-.event-item h3 {
-  font-size: 1.6rem ;
-  color: white;
-}
-
-.eventos-titulo {
-  font-size: 1.5rem; /* Tamanho do título */
-  margin-bottom: 20px; /* Espaço abaixo do título */
-  color: white;
-  text-align: center; /* Centraliza o texto */
-}
-
-.event-list {
-  display: grid; /* Usando grid para layout */
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Cria até 6 colunas de 200px */
-  gap: 20px; /* Espaçamento entre os itens */
-}
-
-.event-item {
-  background-color: rgba(255, 255, 255, 0.1); /* Fundo levemente transparente */
-  padding: 15px; /* Espaçamento interno dos itens */
-  border-radius: 8px; /* Bordas arredondadas */
-  text-align: center; /* Centraliza o texto dentro do item */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra leve */
-}
-
 .load-more-button {
   display: block; /* Faz o botão ocupar toda a largura */
   margin: 20px auto; /* Centraliza o botão */
@@ -103,20 +17,5 @@ body {
   border-radius: 5px; /* Bordas arredondadas */
   cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
 }
-/* Estilo para a seção de navegação */
-.navigation div {
-  display: flex; /* Usando flexbox para alinhar os itens */
-  align-items: center; /* Centraliza verticalmente os itens */
-  gap: 10px; /* Espaçamento entre o texto e o botão */
-}
 
-.event-item {
-  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Efeito ao passar o mouse */
-}
-
-/* Efeito ao passar o mouse sobre os eventos */
-.event-item:hover {
-  transform: translateY(-5px); /* Leve elevação ao passar o mouse */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada */
-}
 

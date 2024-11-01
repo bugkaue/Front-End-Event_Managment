@@ -14,7 +14,6 @@
 
 /* LayoutAdm.css */
 main {
-  margin-left: 20%; /* Ajuste conforme a largura da sua barra de navegação */
   transition: margin-left 0.3s ease-in-out;
 }
 
