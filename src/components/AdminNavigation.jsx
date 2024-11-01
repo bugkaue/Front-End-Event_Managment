@@ -1,27 +1,71 @@
-// AdminNavigation.jsx
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Importando useNavigate
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
+import { 
+  LayoutDashboard, 
+  Calendar, 
+  Users, 
+  ChevronRight,
+  Settings,
+  LogOut
+} from 'lucide-react';
 import '../styles/AdminNavigation.css';
 import logoImage from '../assets/logo.png';
-import { useAuthLogout } from '../services/AdminAuth'; 
+import { useAuthLogout } from '../services/AdminAuth';
 
 const AdminNavigation = () => {
-  const navigate = useNavigate(); // Hook para navegação
-  const { mutate: logoutFn } = useAuthLogout();   
+  const navigate = useNavigate(); 
+  const { mutate: logoutFn } = useAuthLogout(); 
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const menuItems = [
+    { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard', path: '/admin-dashboard' },
+    { id: 'usuarios', icon: Users, label: 'Usuários', path: '/usuarios' },
+    { id: 'gerencia-eventos', icon: Calendar, label: 'Gerenciar Eventos', path: '/gerencia-eventos' },
+    { id: 'settings', icon: Settings, label: 'Configurações', path: '#' }, // Adicione a rota conforme necessário
+  ];
+
   return (
-    <aside className="sidebar">
-      <div className="sidebar-logo">
-        <img src={logoImage} alt="Logo" />
+    <aside 
+      className={`sidebar bg-indigo-700 text-white transition-all duration-300 ease-in-out ${
+        isExpanded ? 'w-64' : 'w-20'
+      }`}
+      onMouseEnter={() => setIsExpanded(true)}
+      onMouseLeave={() => setIsExpanded(false)}
+    >
+      <div className="sidebar-logo p-4">
+        <img src={logoImage} alt="Logo" className={`transition-all ${isExpanded ? 'block' : 'hidden'}`} />
+        <ChevronRight 
+          className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}
+        />
       </div>
-      <nav className="sidebar-nav">
+
+      <nav className="sidebar-nav mt-8">
         <ul>
-          <li><a href="#" onClick={() => navigate('/admin-dashboard')}>Dashboard</a></li>
-          <li><a href="#" onClick={() => navigate('/usuarios')}>Usuários</a></li>
-          <li><a href="#" onClick={() => navigate('/gerencia-eventos')}>Gerenciar Eventos</a></li>
-          <li><a href="#">Configurações</a></li>
-          <li><a href="#" onClick={() => logoutFn()}>Sair</a></li>
+          {menuItems.map((item) => (
+            <li key={item.id}>
+              <button
+                onClick={() => navigate(item.path)}
+                className={`w-full flex items-center p-4 hover:bg-indigo-800 transition-colors ${
+                  window.location.pathname === item.path ? 'bg-indigo-800' : ''
+                }`}
+              >
+                <item.icon className="w-6 h-6" />
+                {isExpanded && <span className="ml-4">{item.label}</span>}
+              </button>
+            </li>
+          ))}
         </ul>
       </nav>
+
+      <div className="absolute bottom-0 w-full">
+        <button 
+          className="w-full flex items-center p-4 hover:bg-indigo-800 transition-colors"
+          onClick={() => logoutFn()}
+        >
+          <LogOut className="w-6 h-6" />
+          {isExpanded && <span className="ml-4">Sair</span>}
+        </button>
+      </div>
     </aside>
   );
 };

@@ -19,6 +19,20 @@ const fetchEventosCount = async () => {
   return response.data;
 };
 
+const fetchInscricaoCount = async () => { 
+  const response = await axios.get('https://localhost:7062/Inscricao/count');
+  return response.data;
+}
+
+
+// hook contagem de usuarios
+export const useFetchInscricaoCount = () => { // Corrected the function name to use camel case
+  return useQuery({
+    queryKey: ["inscricaoCount"],
+    queryFn: fetchInscricaoCount,
+  });
+}
+
 // Hook para buscar a contagem de eventos
 export const useFetchEventosCount = () => {
   return useQuery({

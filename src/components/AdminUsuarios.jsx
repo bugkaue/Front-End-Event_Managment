@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
+import { Edit, Trash2, Plus } from 'lucide-react';
 import { useFetchUsuarios } from '../services/Usuarios'; // Hook para buscar usuários
 import { useDeleteUsuario } from '../services/AdminServices'; // Hook para excluir usuário
 import { useAuth } from '../context/AuthContext'; // Para obter o token de autenticação
 import Swal from 'sweetalert2'; // Importando SweetAlert2
 import axios from 'axios'; // Não esqueça de importar o axios
-import '../styles/AdminUsuario.css'; // Importando o arquivo de estilos
+import '../styles/AdminUsuario.css';
 
 const Usuarios = () => {
   // Hook para buscar dados dos usuários
   const { data: usuarios, isLoading, error } = useFetchUsuarios();
-  const [eventosInscritos, setEventosInscritos] = useState([]);
   const { token } = useAuth(); // Obter token de autenticação
 
   // Hook para deletar usuário
@@ -31,8 +31,7 @@ const Usuarios = () => {
           Authorization: `Bearer ${token}`, // Substitua pelo seu token
         },
       });
-      setEventosInscritos(response.data);
-      
+
       // Exibir os eventos em um modal
       Swal.fire({
         title: 'Eventos Inscritos',
@@ -48,20 +47,20 @@ const Usuarios = () => {
     }
   };
 
- const generateEventListHtml = (eventos) => {
-  if (eventos.length === 0) {
-    return '<p>Nenhum evento inscrito.</p>';
-  }
-  return eventos.map(evento => `
-    <div class="evento-item">  <!-- Adicione uma classe aqui -->
-      <h4>${evento.titulo}</h4>
-      <p><strong>Descrição:</strong> ${evento.descricao}</p>
-      <p><strong>Data e Hora:</strong> ${new Date(evento.dataHora).toLocaleString()}</p>
-      <p><strong>Local:</strong> ${evento.local}</p>
-      <p><strong>Capacidade Máxima:</strong> ${evento.capacidadeMaxima}</p>
-    </div>
-  `).join('');
-};
+  const generateEventListHtml = (eventos) => {
+    if (eventos.length === 0) {
+      return '<p>Nenhum evento inscrito.</p>';
+    }
+    return eventos.map(evento => 
+      `<div class="evento-item">
+        <h4>${evento.titulo}</h4>
+        <p><strong>Descrição:</strong> ${evento.descricao}</p>
+        <p><strong>Data e Hora:</strong> ${new Date(evento.dataHora).toLocaleString()}</p>
+        <p><strong>Local:</strong> ${evento.local}</p>
+        <p><strong>Capacidade Máxima:</strong> ${evento.capacidadeMaxima}</p>
+      </div>`
+    ).join('');
+  };
 
   // Função para deletar usuário com confirmação
   const handleDelete = (email) => {
@@ -74,43 +73,64 @@ const Usuarios = () => {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sim, excluir!',
       cancelButtonText: 'Não, voltar!',
-      customClass: {
-        popup: 'custom-modal', // Adiciona a classe personalizada ao modal
-      }
     }).then((result) => {
       if (result.isConfirmed) {
         deleteUser({ email, token }); // Chama o hook para excluir o usuário
-        Swal.fire(
-          'Excluído!',
-          'O usuário foi excluído com sucesso.',
-          'success',
-          {
-            customClass: {
-              popup: 'custom-modal', // Adiciona a classe personalizada ao modal
-            }
-          }
-        );
+        Swal.fire('Excluído!', 'O usuário foi excluído com sucesso.', 'success');
       }
     });
   };
 
   return (
-    <div className='usuarioContainer'>
-      <h1>Lista de Usuários</h1>
-      <div className='usuariosLista'>
-        {usuarios && usuarios.map((usuario) => (
-          <div key={usuario.id} className='usuarioItem'>
-            <div className='usuarioInfo'>
-              <span><strong>Nome:</strong> {usuario.nome}</span>
-              <span><strong>Sobrenome:</strong> {usuario.sobrenome}</span>
-              <span><strong>Email:</strong> {usuario.email}</span>
-            </div>
-            <div className='usuarioAcoes'>
-              <button className='editButton' onClick={() => handleEdit(usuario.id)}>Eventos Inscritos</button>
-              <button onClick={() => handleDelete(usuario.email)} className='deleteButton'>Deletar</button>
-            </div>
-          </div>
-        ))}
+    <div className="p-8">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold text-gray-800">Gerenciar Usuários</h1>
+      </div>
+
+      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Nome
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Sobrenome
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Email
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Ações
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {usuarios && usuarios.map((usuario) => (
+              <tr key={usuario.id} className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm font-medium text-gray-900">{usuario.nome}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm font-medium text-gray-900">{usuario.sobrenome}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-500">{usuario.email}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <div className="flex space-x-3">
+                    <button className="text-indigo-600 hover:text-indigo-900" onClick={() => handleEdit(usuario.id)}>
+                      <Edit className="w-5 h-5" />
+                    </button>
+                    <button className="text-red-600 hover:text-red-900" onClick={() => handleDelete(usuario.email)}>
+                      <Trash2 className="w-5 h-5" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

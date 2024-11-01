@@ -1,8 +1,10 @@
+/* 
 body {
   
   background: linear-gradient(200deg, #0a0c26, #0e0f22); /* Gradiente linear para a seção direita */background-color: #191a4b;
-  margin: 0; /* Remove margens padrão */
+  /* Remove margens padrão 
 }
+*/
 
 /* Estilo para a seção de eventos */
 .eventos-container {

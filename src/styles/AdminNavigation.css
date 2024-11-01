@@ -1,44 +1,27 @@
-/* Estilo para a barra lateral */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* AdminNavigation.css */
 .sidebar {
-  background: linear-gradient(200deg, #62638d, #101238); /* Gradiente de fundo */
-  width: 250px; /* Largura fixa da barra lateral */
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
+  position: fixed; /* Fixa a barra de navegação à esquerda */
+  height: 100%; /* Faz com que a barra de navegação ocupe toda a altura */
+  transition: width 0.3s ease-in-out;
 }
 
-/* Estilo para a logo na barra lateral */
 .sidebar-logo img {
-  width: 150px; /* Ajuste o tamanho da logo conforme necessário */
-  margin-bottom: 20px;
+  transition: opacity 0.3s ease-in-out;
 }
 
-/* Estilo para os itens de navegação */
-.sidebar-nav ul {
-  list-style-type: none; /* Remove os marcadores das listas */
-  padding: 0;
-  width: 100%;
+/* LayoutAdm.css */
+main {
+  margin-left: 20%; /* Ajuste conforme a largura da sua barra de navegação */
+  transition: margin-left 0.3s ease-in-out;
 }
 
-.sidebar-nav ul li {
-  margin: 15px 0; /* Espaçamento entre os itens */
+.sidebar.w-64 + main {
+  margin-left: 16rem; /* A largura da barra de navegação expandida */
 }
 
-.sidebar-nav ul li a {
-  text-decoration: none; /* Remove o sublinhado dos links */
-  color: #fff; /* Cor do texto */
-  font-size: 1.2rem; /* Tamanho do texto */
-  display: block;
-  padding: 10px;
-  border-radius: 5px; /* Bordas arredondadas para o item */
-  transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+.sidebar.w-20 + main {
+  margin-left: 5rem; /* A largura da barra de navegação contraída */
 }
-
-.sidebar-nav ul li a:hover {
-  background-color: #282e54; /* Cor de fundo ao passar o mouse */
-}
-
-
-

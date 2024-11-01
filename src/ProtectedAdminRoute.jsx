@@ -3,10 +3,10 @@ import { Navigate } from 'react-router-dom';
 
 const ProtectedAdminRoute = ({ element }) => {
   const token = localStorage.getItem('jwtToken');
-  const userRole = localStorage.getItem('userRole');
-  const isAdmin = localStorage.getItem('isAdmin');
+  const isAdmin = localStorage.getItem('isAdmin') === 'true'; // Ensure `isAdmin` is stored as a boolean string
 
-  if (!token && userRole !== '1' && isAdmin === 'false') {
+  // Check for token and admin status
+  if (!token && !isAdmin) {
     return <Navigate to="/admin-login" />;
   }
 
