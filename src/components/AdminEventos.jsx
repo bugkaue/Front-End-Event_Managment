@@ -1,9 +1,10 @@
 import React from 'react';
 import Swal from 'sweetalert2';
-import { Edit, Trash2, Plus } from 'lucide-react';
+import { Edit, Trash2, Plus, LucideDownload } from 'lucide-react';
 import { useFetchEventos, useCreateEvento, useUpdateEvento, useDeleteEvento } from '../services/Eventos';
 import { useAuth } from '../context/AuthContext';
 import '../styles/AdminEventos.css';
+import { useGerarRelatorio } from '../services/Inscricao';
 
 const AdminEventos = () => {
   const { token } = useAuth();
@@ -11,6 +12,7 @@ const AdminEventos = () => {
   const deleteEvento = useDeleteEvento();
   const createEvento = useCreateEvento();
   const updateEvento = useUpdateEvento();
+  const { gerarRelatorio } = useGerarRelatorio();
 
   const handleNovoEvento = async () => {
     const { value: formValues } = await Swal.fire({
@@ -40,7 +42,7 @@ const AdminEventos = () => {
     if (formValues) {
       const dataHoraEvento = new Date(formValues.dataHora);
       const dataHoraAtual = new Date();
-      const dataLimite = new Date(dataHoraAtual.getFullYear() + 5, 11, 31); // 5 anos a partir do ano atual
+      const dataLimite = new Date(dataHoraAtual.getFullYear() + 5, 11, 31);
 
       if (dataHoraEvento < dataHoraAtual) {
         Swal.fire('Erro!', 'Não é possível criar um evento em uma data que já passou.', 'error');
@@ -98,7 +100,7 @@ const AdminEventos = () => {
     if (formValues) {
       const dataHoraEvento = new Date(formValues.dataHora);
       const dataHoraAtual = new Date();
-      const dataLimite = new Date(dataHoraAtual.getFullYear() + 5, 11, 31); // 5 anos a partir do ano atual
+      const dataLimite = new Date(dataHoraAtual.getFullYear() + 5, 11, 31);
 
       if (dataHoraEvento < dataHoraAtual) {
         Swal.fire('Erro!', 'Não é possível atualizar um evento em uma data que já passou.', 'error');
@@ -181,49 +183,37 @@ const AdminEventos = () => {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Local</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data e Hora</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Capacidade</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Inscritos</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Inscrições</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {eventos.map((evento) => (
-              <tr key={evento.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">{evento.titulo}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-500">{evento.local}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-500">{new Date(evento.dataHora).toLocaleString()}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-500">{evento.capacidadeMaxima}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-500">{evento.numeroInscricoes}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${evento.isAtivo ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                    {evento.isAtivo ? 'Ativo' : 'Inativo'}
-                  </span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <div className="flex space-x-3">
-                    <button
-                      className="text-indigo-600 hover:text-indigo-900"
-                      onClick={() => handleEditarEvento(evento)}
-                    >
-                      <Edit className="w-5 h-5" />
-                    </button>
-                    <button 
-                      className="text-red-600 hover:text-red-900"
-                      onClick={() => handleDeleteEvento(evento)}
-                    >
-                      <Trash2 className="w-5 h-5" />
-                    </button>
-                  </div>
+              <tr key={evento.id}>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{evento.titulo}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{evento.local}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Date(evento.dataHora).toLocaleString()}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{evento.capacidadeMaxima}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{evento.numeroInscricoes}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex gap-4">
+                  <button
+                    onClick={() => handleEditarEvento(evento)}
+                    className="text-indigo-600 hover:text-indigo-900"
+                  >
+                    <Edit />
+                  </button>
+                  <button
+                    onClick={() => handleDeleteEvento(evento)}
+                    className="text-red-600 hover:text-red-900"
+                  >
+                    <Trash2 />
+                  </button>
+                  <button
+                    onClick={() => gerarRelatorio(evento.id, token)}
+                    className="text-indigo-600 hover:text-indigo-900"
+                  >
+                    <LucideDownload/>
+                  </button>
                 </td>
               </tr>
             ))}

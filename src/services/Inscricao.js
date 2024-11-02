@@ -28,10 +28,10 @@ const removeInscricao = async ({ participanteId, eventoId, token }) => {
       Authorization: `Bearer ${token}`,
     },
   });
-  return response.data; 
+  return response.data;
 };
 
-const fetchInscricaoCount = async () => { 
+const fetchInscricaoCount = async () => {
   const response = await axios.get('https://localhost:7062/Inscricao/count');
   return response.data;
 }
@@ -73,7 +73,7 @@ export const useFetchInscricoes = (token, participanteId, options = {}) => {
 // Hook para remover inscrição
 export const useRemoveInscricao = (options = {}) => {
   const queryClient = useQueryClient(); // Obtendo a instância do queryClient
-  const {token} = useAuth()
+  const { token } = useAuth()
 
   return useMutation({
     mutationFn: ({ eventoId, participanteId }) => removeInscricao({ eventoId, participanteId, token }),
@@ -96,4 +96,36 @@ export const useRemoveInscricao = (options = {}) => {
     },
     ...options,
   });
+};
+
+// Função para gerar relatório de inscrições
+const gerarRelatorio = async (eventoId, token) => {
+  try {
+    const response = await axios.get(`https://localhost:7062/Relatorio/gerar/${eventoId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      responseType: 'blob',
+    });
+
+    // Create a link to download the file
+    const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `relatorio_evento_${eventoId}.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Erro ao gerar relatório:", error);
+    Swal.fire('Erro!', 'Não foi possível gerar o relatório.', 'error');
+  }
+};
+
+// Hook para gerar relatório de inscrições
+export const useGerarRelatorio = () => {
+  return {
+    gerarRelatorio,
+  };
 };
