@@ -184,6 +184,7 @@ const AdminEventos = () => {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data e Hora</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Capacidade</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Inscrições</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th> {/* Nova coluna para o status */}
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
             </tr>
           </thead>
@@ -195,6 +196,14 @@ const AdminEventos = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Date(evento.dataHora).toLocaleString()}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{evento.capacidadeMaxima}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{evento.numeroInscricoes}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm">
+                  <span
+                    className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${evento.isAtivo ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'
+                      }`}
+                  >
+                    {evento.isAtivo ? 'Ativo' : 'Inativo'}
+                  </span>
+                </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex gap-4">
                   <button
                     onClick={() => handleEditarEvento(evento)}
@@ -212,7 +221,7 @@ const AdminEventos = () => {
                     onClick={() => gerarRelatorio(evento.id, token)}
                     className="text-indigo-600 hover:text-indigo-900"
                   >
-                    <LucideDownload/>
+                    <LucideDownload />
                   </button>
                 </td>
               </tr>

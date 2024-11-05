@@ -10,10 +10,9 @@ const Dashboard = () => {
   const { token, participante } = useAuth();
   const { data: eventos } = useFetchEventos(token);
   const { data: inscricoes, refetch: refetchInscricoes } = useFetchInscricoes(token, participante?.id);
-  const [localInscricoes, setLocalInscricoes] = useState([]); // Estado local para inscrições
-  const [visibleCount, setVisibleCount] = useState(6); // Contador de eventos visíveis
+  const [localInscricoes, setLocalInscricoes] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(6);
 
-  // Combina as inscrições locais e do servidor para verificar se o usuário já está inscrito
   const inscricoesCombinadas = [...(inscricoes || []), ...localInscricoes];
 
   const isInscrito = (eventoId) => {
@@ -22,9 +21,8 @@ const Dashboard = () => {
 
   const { mutate: inscreverEvento } = useSubscribeEventos({
     onSuccess: (newInscricao) => {
-      // Atualiza as inscrições localmente para refletir a mudança imediata
       setLocalInscricoes((prevInscricoes) => [...prevInscricoes, newInscricao]);
-      refetchInscricoes(); // Refetch para garantir que as inscrições estão atualizadas
+      refetchInscricoes();
     },
   });
 
@@ -53,14 +51,15 @@ const Dashboard = () => {
     });
   };
 
-  // Manipulador para carregar mais eventos
   const loadMore = () => {
     setVisibleCount((prevCount) => prevCount + 6);
   };
 
+  const isEventoFinalizado = (dataHora) => new Date(dataHora) < new Date();
+
   return (
-    <div className="flex"> {/* Use flexbox para alinhar a sidebar e o conteúdo */}
-      <main className="flex-1 p-6"> {/* O conteúdo principal */}
+    <div className="flex">
+      <main className="flex-1 p-6">
         <h1 className="text-3xl font-bold mb-8">Eventos Disponíveis</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {eventos?.slice(0, visibleCount).map((evento) => (
@@ -87,24 +86,28 @@ const Dashboard = () => {
                 <p className="text-gray-600 mb-4">{evento.descricao}</p>
                 <button
                   onClick={() => handleInscrever(evento.id)}
-                  disabled={isInscrito(evento.id)}
-                  className={`w-full py-2 px-4 rounded-md transition-colors ${
-                    isInscrito(evento.id)
+                  disabled={isInscrito(evento.id) || isEventoFinalizado(evento.dataHora)}
+                  className={`w-full py-2 px-4 rounded-md transition-colors ${isEventoFinalizado(evento.dataHora)
                       ? 'bg-red-500 text-white cursor-not-allowed'
-                      : 'bg-indigo-600 hover:bg-indigo-700 text-white'
-                  }`}
+                      : isInscrito(evento.id)
+                        ? 'bg-gray-500 text-white cursor-not-allowed'
+                        : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                    }`}
                 >
-                  {isInscrito(evento.id) ? 'Inscrito' : 'Inscrever-se'}
+                  {isEventoFinalizado(evento.dataHora)
+                    ? 'Encerrado'
+                    : isInscrito(evento.id)
+                      ? 'Inscrito'
+                      : 'Inscrever-se'}
                 </button>
               </div>
             </div>
           ))}
         </div>
-        
-        {/* Botão para carregar mais eventos */}
+
         {eventos && eventos.length > visibleCount && (
           <div className="mt-6 text-center">
-            <button 
+            <button
               onClick={loadMore}
               className="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white transition-colors"
             >

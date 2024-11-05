@@ -13,7 +13,7 @@ const subscribeEvento = async ({ participanteId, eventoId }) => {
 
 // Função para buscar inscrições
 const fetchInscricoes = async (token, participanteId) => {
-  const response = await axios.get(`https://localhost:7062/Eventos/participante/${participanteId}/inscricoes`, {
+  const response = await axios.get(`https://localhost:7062/Inscricao/${participanteId}/eventos`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
