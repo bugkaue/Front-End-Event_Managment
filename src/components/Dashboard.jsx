@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapPin, Clock, Users } from 'lucide-react';
 import { useFetchEventos } from '../services/Eventos';
 import { useFetchInscricoes, useSubscribeEventos } from '../services/Inscricao';
@@ -6,22 +6,43 @@ import { useAuth } from '../context/AuthContext';
 import Swal from 'sweetalert2';
 import '../styles/AdminNavigation.css';
 
+const isEventoLotado = (numeroInscricoes, capacidadeMaxima) => numeroInscricoes >= capacidadeMaxima;
+const isEventoFinalizado = (dataHora) => new Date(dataHora) < new Date();
+
 const Dashboard = () => {
   const { token, participante } = useAuth();
   const { data: eventos } = useFetchEventos(token);
   const { data: inscricoes, refetch: refetchInscricoes } = useFetchInscricoes(token, participante?.id);
   const [localInscricoes, setLocalInscricoes] = useState([]);
   const [visibleCount, setVisibleCount] = useState(6);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all'); // 'all', 'available', 'finished', 'full'
 
+  // Combina as inscrições locais e as recuperadas da API
   const inscricoesCombinadas = [...(inscricoes || []), ...localInscricoes];
 
-  const isInscrito = (eventoId) => {
-    return inscricoesCombinadas.some((inscricao) => inscricao.eventoId === eventoId);
+  // Função de pesquisa
+  const filteredEventos = eventos?.filter((evento) => {
+    const matchSearchTerm = evento.titulo.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchStatusFilter = (statusFilter === 'all') ||
+      (statusFilter === 'available' && !isEventoFinalizado(evento.dataHora) && !isEventoLotado(evento.numeroInscricoes, evento.capacidadeMaxima)) ||
+      (statusFilter === 'finished' && isEventoFinalizado(evento.dataHora)) ||
+      (statusFilter === 'full' && isEventoLotado(evento.numeroInscricoes, evento.capacidadeMaxima));
+    return matchSearchTerm && matchStatusFilter;
+  });
+
+  const isInscrito = (id) => {
+    return inscricoesCombinadas.some((inscricao) => inscricao.id === id);
   };
 
   const { mutate: inscreverEvento } = useSubscribeEventos({
     onSuccess: (newInscricao) => {
-      setLocalInscricoes((prevInscricoes) => [...prevInscricoes, newInscricao]);
+      setLocalInscricoes((prevInscricoes) => {
+        const updatedInscricoes = [...prevInscricoes, newInscricao];
+        // Salva as inscrições no localStorage
+        localStorage.setItem('inscricoes', JSON.stringify(updatedInscricoes));
+        return updatedInscricoes;
+      });
       refetchInscricoes();
     },
   });
@@ -55,14 +76,45 @@ const Dashboard = () => {
     setVisibleCount((prevCount) => prevCount + 6);
   };
 
-  const isEventoFinalizado = (dataHora) => new Date(dataHora) < new Date();
+  // Carregar inscrições do localStorage ao montar o componente
+  useEffect(() => {
+    const inscricoesSalvas = JSON.parse(localStorage.getItem('inscricoes')) || [];
+    setLocalInscricoes(inscricoesSalvas);
+  }, []);
 
   return (
     <div className="flex">
       <main className="flex-1 p-6">
         <h1 className="text-3xl font-bold mb-8">Eventos Disponíveis</h1>
+        
+        {/* Barra de pesquisa */}
+        <div className="mb-4">
+          <input
+            type="text"
+            placeholder="Pesquisar eventos..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full p-2 border rounded-md"
+          />
+        </div>
+
+        {/* Filtros */}
+        <div className="mb-6">
+          <label className="mr-4">Filtrar por:</label>
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="p-2 border rounded-md"
+          >
+            <option value="all">Todos</option>
+            <option value="available">Disponíveis</option>
+            <option value="finished">Encerrados</option>
+            <option value="full">Lotados</option>
+          </select>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {eventos?.slice(0, visibleCount).map((evento) => (
+          {filteredEventos?.slice(0, visibleCount).map((evento) => (
             <div
               key={evento.id}
               className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
@@ -86,26 +138,30 @@ const Dashboard = () => {
                 <p className="text-gray-600 mb-4">{evento.descricao}</p>
                 <button
                   onClick={() => handleInscrever(evento.id)}
-                  disabled={isInscrito(evento.id) || isEventoFinalizado(evento.dataHora)}
+                  disabled={isInscrito(evento.id) || isEventoFinalizado(evento.dataHora) || isEventoLotado(evento.numeroInscricoes, evento.capacidadeMaxima)}
                   className={`w-full py-2 px-4 rounded-md transition-colors ${isEventoFinalizado(evento.dataHora)
                       ? 'bg-red-500 text-white cursor-not-allowed'
                       : isInscrito(evento.id)
                         ? 'bg-gray-500 text-white cursor-not-allowed'
-                        : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                        : isEventoLotado(evento.numeroInscricoes, evento.capacidadeMaxima)
+                          ? 'bg-gray-400 text-white cursor-not-allowed'
+                          : 'bg-indigo-600 hover:bg-indigo-700 text-white'
                     }`}
                 >
                   {isEventoFinalizado(evento.dataHora)
                     ? 'Encerrado'
                     : isInscrito(evento.id)
                       ? 'Inscrito'
-                      : 'Inscrever-se'}
+                      : isEventoLotado(evento.numeroInscricoes, evento.capacidadeMaxima)
+                        ? 'Evento Lotado'
+                        : 'Inscrever-se'}
                 </button>
               </div>
             </div>
           ))}
         </div>
 
-        {eventos && eventos.length > visibleCount && (
+        {filteredEventos && filteredEventos.length > visibleCount && (
           <div className="mt-6 text-center">
             <button
               onClick={loadMore}

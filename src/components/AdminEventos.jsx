@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { Edit, Trash2, Plus, LucideDownload } from 'lucide-react';
-import { useFetchEventos, useCreateEvento, useUpdateEvento, useDeleteEvento } from '../services/Eventos';
+import {
+  useFetchEventos,
+  useCreateEvento,
+  useUpdateEvento,
+  useDeleteEvento,
+} from '../services/Eventos';
 import { useAuth } from '../context/AuthContext';
 import '../styles/AdminEventos.css';
 import { useGerarRelatorio } from '../services/Inscricao';
@@ -14,6 +19,33 @@ const AdminEventos = () => {
   const updateEvento = useUpdateEvento();
   const { gerarRelatorio } = useGerarRelatorio();
 
+  // Estados para pesquisa e filtro
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
+
+  // Função para filtrar eventos
+  const filteredEventos = eventos.filter((evento) => {
+    // Filtrar por termo de pesquisa
+    const matchesSearchTerm = evento.titulo
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
+    // Filtrar por status
+    let matchesStatus = true;
+
+    if (statusFilter === 'available') {
+      matchesStatus =
+        evento.isAtivo && evento.numeroInscricoes < evento.capacidadeMaxima;
+    } else if (statusFilter === 'ended') {
+      matchesStatus = !evento.isAtivo;
+    } else if (statusFilter === 'soldout') {
+      matchesStatus = evento.numeroInscricoes >= evento.capacidadeMaxima;
+    }
+
+    return matchesSearchTerm && matchesStatus;
+  });
+
+  // Função para criar um novo evento
   const handleNovoEvento = async () => {
     const { value: formValues } = await Swal.fire({
       title: 'Criar Novo Evento',
@@ -34,7 +66,8 @@ const AdminEventos = () => {
           descricao: document.getElementById('swal-descricao').value,
           dataHora: document.getElementById('swal-dataHora').value,
           local: document.getElementById('swal-local').value,
-          capacidadeMaxima: document.getElementById('swal-capacidadeMaxima').value,
+          capacidadeMaxima: document.getElementById('swal-capacidadeMaxima')
+            .value,
         };
       },
     });
@@ -45,12 +78,20 @@ const AdminEventos = () => {
       const dataLimite = new Date(dataHoraAtual.getFullYear() + 5, 11, 31);
 
       if (dataHoraEvento < dataHoraAtual) {
-        Swal.fire('Erro!', 'Não é possível criar um evento em uma data que já passou.', 'error');
+        Swal.fire(
+          'Erro!',
+          'Não é possível criar um evento em uma data que já passou.',
+          'error'
+        );
         return;
       }
 
       if (dataHoraEvento > dataLimite) {
-        Swal.fire('Erro!', 'Não é possível criar um evento para uma data tão distante.', 'error');
+        Swal.fire(
+          'Erro!',
+          'Não é possível criar um evento para uma data tão distante.',
+          'error'
+        );
         return;
       }
 
@@ -58,27 +99,33 @@ const AdminEventos = () => {
         createEvento.mutate(
           { token, data: formValues },
           {
-            onSuccess: () => Swal.fire('Sucesso!', 'Evento criado com sucesso.', 'success'),
+            onSuccess: () =>
+              Swal.fire('Sucesso!', 'Evento criado com sucesso.', 'success'),
             onError: (error) => {
-              console.error("Erro ao criar evento:", error);
+              console.error('Erro ao criar evento:', error);
               Swal.fire('Erro!', 'Não foi possível criar o evento.', 'error');
             },
           }
         );
       } catch (error) {
-        console.error("Erro ao criar evento:", error);
+        console.error('Erro ao criar evento:', error);
         Swal.fire('Erro!', 'Não foi possível criar o evento.', 'error');
       }
     }
   };
 
+  // Função para editar um evento existente
   const handleEditarEvento = async (evento) => {
     const { value: formValues } = await Swal.fire({
       title: 'Editar Evento',
       html: `
         <input id="swal-titulo" class="swal2-input" value="${evento.titulo}">
         <textarea id="swal-descricao" class="swal2-textarea">${evento.descricao}</textarea>
-        <input id="swal-dataHora" type="datetime-local" class="swal2-input" value="${new Date(evento.dataHora).toISOString().slice(0, 16)}">
+        <input id="swal-dataHora" type="datetime-local" class="swal2-input" value="${new Date(
+          evento.dataHora
+        )
+          .toISOString()
+          .slice(0, 16)}">
         <input id="swal-local" class="swal2-input" value="${evento.local}">
         <input id="swal-capacidadeMaxima" type="number" min="1" class="swal2-input" value="${evento.capacidadeMaxima}">
       `,
@@ -92,7 +139,8 @@ const AdminEventos = () => {
           descricao: document.getElementById('swal-descricao').value,
           dataHora: document.getElementById('swal-dataHora').value,
           local: document.getElementById('swal-local').value,
-          capacidadeMaxima: document.getElementById('swal-capacidadeMaxima').value,
+          capacidadeMaxima: document.getElementById('swal-capacidadeMaxima')
+            .value,
         };
       },
     });
@@ -103,12 +151,20 @@ const AdminEventos = () => {
       const dataLimite = new Date(dataHoraAtual.getFullYear() + 5, 11, 31);
 
       if (dataHoraEvento < dataHoraAtual) {
-        Swal.fire('Erro!', 'Não é possível atualizar um evento em uma data que já passou.', 'error');
+        Swal.fire(
+          'Erro!',
+          'Não é possível atualizar um evento em uma data que já passou.',
+          'error'
+        );
         return;
       }
 
       if (dataHoraEvento > dataLimite) {
-        Swal.fire('Erro!', 'Não é possível atualizar um evento para uma data tão distante.', 'error');
+        Swal.fire(
+          'Erro!',
+          'Não é possível atualizar um evento para uma data tão distante.',
+          'error'
+        );
         return;
       }
 
@@ -116,24 +172,30 @@ const AdminEventos = () => {
         updateEvento.mutate(
           { token, id: evento.id, data: formValues },
           {
-            onSuccess: () => Swal.fire('Sucesso!', 'Evento atualizado com sucesso.', 'success'),
+            onSuccess: () =>
+              Swal.fire('Sucesso!', 'Evento atualizado com sucesso.', 'success'),
             onError: (error) => {
-              console.error("Erro ao atualizar evento:", error);
-              Swal.fire('Erro!', 'Não foi possível atualizar o evento.', 'error');
+              console.error('Erro ao atualizar evento:', error);
+              Swal.fire(
+                'Erro!',
+                'Não foi possível atualizar o evento.',
+                'error'
+              );
             },
           }
         );
       } catch (error) {
-        console.error("Erro ao atualizar evento:", error);
+        console.error('Erro ao atualizar evento:', error);
         Swal.fire('Erro!', 'Não foi possível atualizar o evento.', 'error');
       }
     }
   };
 
+  // Função para excluir um evento
   const handleDeleteEvento = async (evento) => {
     const { isConfirmed } = await Swal.fire({
       title: 'Tem certeza?',
-      text: "Você não poderá reverter isso!",
+      text: 'Você não poderá reverter isso!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sim, excluir!',
@@ -145,15 +207,20 @@ const AdminEventos = () => {
         deleteEvento.mutate(
           { token, id: evento.id },
           {
-            onSuccess: () => Swal.fire('Excluído!', 'O evento foi excluído com sucesso.', 'success'),
+            onSuccess: () =>
+              Swal.fire(
+                'Excluído!',
+                'O evento foi excluído com sucesso.',
+                'success'
+              ),
             onError: (error) => {
-              console.error("Erro ao excluir evento:", error);
+              console.error('Erro ao excluir evento:', error);
               Swal.fire('Erro!', 'Não foi possível excluir o evento.', 'error');
             },
           }
         );
       } catch (error) {
-        console.error("Erro ao excluir evento:", error);
+        console.error('Erro ao excluir evento:', error);
         Swal.fire('Erro!', 'Não foi possível excluir o evento.', 'error');
       }
     }
@@ -175,31 +242,81 @@ const AdminEventos = () => {
         </button>
       </div>
 
+      {/* Campos de pesquisa e filtro */}
+      <div className="flex justify-between items-center mb-6">
+        <div className="flex items-center gap-4">
+          <input
+            type="text"
+            placeholder="Pesquisar eventos..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="border border-gray-300 rounded-lg px-4 py-2"
+          />
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="border border-gray-300 rounded-lg px-4 py-2"
+          >
+            <option value="all">Todos</option>
+            <option value="available">Disponíveis</option>
+            <option value="ended">Encerrados</option>
+            <option value="soldout">Lotados</option>
+          </select>
+        </div>
+      </div>
+
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Evento</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Local</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data e Hora</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Capacidade</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Inscrições</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th> {/* Nova coluna para o status */}
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Evento
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Local
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Data e Hora
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Capacidade
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Inscrições
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Status
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Ações
+              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {eventos.map((evento) => (
+            {filteredEventos.map((evento) => (
               <tr key={evento.id}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{evento.titulo}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{evento.local}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Date(evento.dataHora).toLocaleString()}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{evento.capacidadeMaxima}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{evento.numeroInscricoes}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {evento.titulo}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {evento.local}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {new Date(evento.dataHora).toLocaleString()}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {evento.capacidadeMaxima}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {evento.numeroInscricoes}
+                </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                   <span
-                    className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${evento.isAtivo ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'
-                      }`}
+                    className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                      evento.isAtivo
+                        ? 'bg-yellow-100 text-yellow-800'
+                        : 'bg-red-100 text-red-800'
+                    }`}
                   >
                     {evento.isAtivo ? 'Ativo' : 'Inativo'}
                   </span>

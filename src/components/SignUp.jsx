@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Image from "../assets/logoRegister.png";
 import Logo from "../assets/logo.png";
 import GoogleSvg from "../assets/icons8-google.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { useRegisterUser } from "../services/Auth";
+import axios from "axios";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,6 +16,8 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isWaitingForConfirmation, setIsWaitingForConfirmation] = useState(false);
+  const [confirmationToken, setConfirmationToken] = useState(""); // Novo estado para armazenar o token
   const navigate = useNavigate();
 
   const { mutate: register } = useRegisterUser();
@@ -39,8 +42,41 @@ const SignUp = () => {
 
     setErrorMessage(""); // Resetar mensagem de erro
 
-    register({ nome, sobrenome, email, password, confirmPassword });
+    // Registrando o usuário
+    register(
+      { nome, sobrenome, email, password, confirmPassword },
+      {
+        onSuccess: (response) => {
+          setIsWaitingForConfirmation(true);
+          setConfirmationToken(response.token); // Define o token retornado pela API
+        },
+        onError: () => {
+          setErrorMessage("Ocorreu um erro ao registrar.");
+        },
+      }
+    );
   };
+
+  // useEffect para verificar a confirmação de e-mail periodicamente
+  useEffect(() => {
+    let interval;
+    if (isWaitingForConfirmation && confirmationToken) {
+      interval = setInterval(async () => {
+        try {
+          const response = await axios.get(`/api/Account/confirm-email`, {
+            params: { email, token: confirmationToken },
+          });
+          if (response.status === 200) {
+            clearInterval(interval);
+            navigate("/"); // Redireciona para a tela de login após confirmação
+          }
+        } catch (error) {
+          console.log("Aguardando confirmação...");
+        }
+      }, 5000); // Verifica a cada 5 segundos
+    }
+    return () => clearInterval(interval);
+  }, [isWaitingForConfirmation, confirmationToken, email, navigate]);
 
   return (
     <div className="login-main">
@@ -148,6 +184,12 @@ const SignUp = () => {
                 </button>
               </div>
             </form>
+
+            {isWaitingForConfirmation && (
+              <p className="waiting-confirmation-message">
+                Esperando Confirmação de E-mail...
+              </p>
+            )}
           </div>
 
           <p className="login-bottom-p">

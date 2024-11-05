@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useFetchInscricoes } from '../services/Inscricao';
 import { useRemoveInscricao } from '../services/Inscricao';
-import Swal from 'sweetalert2'; 
+import Swal from 'sweetalert2';
 import '../styles/Inscricoes.css';
 import carinhatriste from '../assets/carinhatriste.png';
 import { MapPin, Clock, Users } from 'lucide-react';
@@ -61,8 +61,8 @@ const Inscricoes = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {hasSubscriptions ? (
-            inscricoes?.slice(0, visibleCount).map((inscricao) => (
-              <div key={inscricao.eventoId} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+            inscricoes?.slice(0, visibleCount).map((inscricao, index) => (
+              <div key={`${inscricao.eventoId}-${index}`} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2">{inscricao.titulo}</h3>
                   <div className="space-y-2 mb-4">
@@ -76,9 +76,9 @@ const Inscricoes = () => {
                     </div>
                   </div>
                   <p className="text-gray-600 mb-4">{inscricao.descricao}</p>
-                  <button 
+                  <button
                     className='w-full py-2 px-4 rounded-md bg-red-500 hover:bg-red-600 text-white transition-colors'
-                    onClick={() => handleRemoveInscricao(inscricao.eventoId)}>
+                    onClick={() => handleRemoveInscricao(inscricao.id)}>
                     Cancelar Inscrição
                   </button>
                 </div>
@@ -93,10 +93,10 @@ const Inscricoes = () => {
             </div>
           )}
         </div>
-        
+
         {hasSubscriptions && inscricoes.length > visibleCount && (
           <div className="mt-6 text-center">
-            <button 
+            <button
               onClick={loadMore}
               className="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white transition-colors"
             >
