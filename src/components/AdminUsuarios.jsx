@@ -26,7 +26,7 @@ const Usuarios = () => {
 
   const handleEdit = async (participanteId) => {
     try {
-      const response = await axios.get(`https://localhost:7062/Eventos/participante/${participanteId}/inscricoes`, {
+      const response = await axios.get(`https://localhost:7062/Inscricao/${participanteId}/eventos`, {
         headers: {
           Authorization: `Bearer ${token}`, // Substitua pelo seu token
         },
@@ -42,7 +42,7 @@ const Usuarios = () => {
         confirmButtonText: 'Fechar',
       });
     } catch (error) {
-      console.error("Erro ao buscar eventos:", error);
+      console.error("Erro ao buscar eventos:", error.response?.data || error.message);
       Swal.fire('Erro!', 'Não foi possível carregar os eventos inscritos.', 'error');
     }
   };
@@ -51,7 +51,7 @@ const Usuarios = () => {
     if (eventos.length === 0) {
       return '<p>Nenhum evento inscrito.</p>';
     }
-    return eventos.map(evento => 
+    return eventos.map(evento =>
       `<div class="evento-item">
         <h4>${evento.titulo}</h4>
         <p><strong>Descrição:</strong> ${evento.descricao}</p>
