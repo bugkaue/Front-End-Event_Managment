@@ -3,14 +3,13 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 
 // Função para excluir um usuário com base no e-mail
-const deleteUsuario = async ({ email, token }) => {
-  console.log("Deletando usuário com email:", email, "e token:", token);
-  const response = await axios.delete(`https://localhost:7062/api/Account/delete-user/${email}`, {
+const deleteUsuario = ({ email, token }) => {
+  return axios.delete("https://localhost:7062/api/Account/delete-user?${email}", {
+    params: { email }, // Passando email como query string
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`, // Adicionando o token de autenticação
     },
   });
-  return response.data;
 };
 
 

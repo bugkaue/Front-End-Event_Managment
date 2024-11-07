@@ -63,23 +63,31 @@ const Usuarios = () => {
   };
 
   // Função para deletar usuário com confirmação
+  
   const handleDelete = (email) => {
-    Swal.fire({
-      title: 'Tem certeza?',
-      text: "Você não poderá reverter essa ação!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sim, excluir!',
-      cancelButtonText: 'Não, voltar!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        deleteUser({ email, token }); // Chama o hook para excluir o usuário
-        Swal.fire('Excluído!', 'O usuário foi excluído com sucesso.', 'success');
-      }
-    });
-  };
+  Swal.fire({
+    title: 'Tem certeza?',
+    text: "Você não poderá reverter essa ação!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, excluir!',
+    cancelButtonText: 'Não, voltar!',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      deleteUser({ email, token }, {
+        onSuccess: () => {
+          Swal.fire('Excluído!', 'O usuário foi excluído com sucesso.', 'success');
+        },
+        onError: (error) => {
+          Swal.fire('Erro!', 'Não foi possível excluir o usuário.', 'error');
+        }
+      });
+    }
+  });
+};
+
 
   return (
     <div className="p-8">
