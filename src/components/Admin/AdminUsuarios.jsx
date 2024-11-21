@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Edit, Trash2, Plus } from 'lucide-react';
-import { useFetchUsuarios } from '../services/Usuarios'; // Hook para buscar usuários
-import { useDeleteUsuario } from '../services/AdminServices'; // Hook para excluir usuário
-import { useAuth } from '../context/AuthContext'; // Para obter o token de autenticação
+import { useFetchUsuarios } from '../../services/Usuarios'; // Hook para buscar usuários
+import { useDeleteUsuario } from '../../services/AdminServices'; // Hook para excluir usuário
+import { useAuth } from '../../context/AuthContext'; // Para obter o token de autenticação
 import Swal from 'sweetalert2'; // Importando SweetAlert2
 import axios from 'axios'; // Não esqueça de importar o axios
-import '../styles/AdminUsuario.css';
+import '../../styles/Admin/AdminUsuario.css'; // Importando o arquivo de estilos
 
 const Usuarios = () => {
   // Hook para buscar dados dos usuários

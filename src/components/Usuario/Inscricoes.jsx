@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { useFetchInscricoes } from '../services/Inscricao';
-import { useRemoveInscricao } from '../services/Inscricao';
+import { useAuth } from '../../context/AuthContext';
+import { useFetchInscricoes } from '../../services/Inscricao';
+import { useRemoveInscricao } from '../../services/Inscricao';
 import Swal from 'sweetalert2';
-import '../styles/Inscricoes.css';
-import carinhatriste from '../assets/carinhatriste.png';
+import '../../styles/Usuario/Inscricoes.css';
+import carinhatriste from '../../assets/carinhatriste.png';
 import { MapPin, Clock, Users } from 'lucide-react';
 
 const Inscricoes = () => {

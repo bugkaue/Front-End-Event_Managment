@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Image from "../assets/logoRegister.png";
-import Logo from "../assets/logo.png";
-import GoogleSvg from "../assets/icons8-google.svg";
+import Image from "../../assets/logoRegister.png";
+import Logo from "../../assets/logo.png";
+import GoogleSvg from "../../assets/icons8-google.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import { useRegisterUser } from "../services/Auth";
+import { useRegisterUser } from "../../services/Auth";
 import axios from "axios";
 
 const SignUp = () => {

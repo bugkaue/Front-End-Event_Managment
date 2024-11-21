@@ -1,20 +1,20 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Login from "./components/Login";
-import AdminLogin from "./components/AdminLogin";
-import SignUp from "./components/SignUp.jsx";
-import Dashboard from "./components/Dashboard";
-import AdminDashboard from "./components/AdminDashboard.jsx";
-import Usuarios from "./components/AdminUsuarios.jsx";
-import GerenciarEventos from "./components/AdminEventos.jsx"; 
+import Login from "../components/Usuario/Login.jsx";
+import AdminLogin from "../components/Admin/AdminLogin";
+import SignUp from "../components/Usuario/SignUp.jsx";
+import Dashboard from "../components/Usuario/Dashboard";
+import AdminDashboard from "../components/Admin/AdminDashboard.jsx";
+import Usuarios from "../components/Admin/AdminUsuarios.jsx";
+import GerenciarEventos from "../components/Admin/AdminEventos.jsx"; 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { AuthProvider } from "./context/AuthContext.jsx";
-import ProtectedRoute from "../src/ProtectedRoute.jsx";
-import ProtectedAdminRoute from "../src/ProtectedAdminRoute.jsx";
-import Inscricoes from "./components/Inscricoes.jsx";
-import Layout from "./Layout.jsx";
-import LayoutAdmin from "./LayoutAdm.jsx";
+import { AuthProvider } from "../context/AuthContext.jsx";
+import ProtectedRoute from "../Route/ProtectedRoute.jsx";
+import ProtectedAdminRoute from "../Route/ProtectedAdminRoute.jsx";
+import Inscricoes from "../components/Usuario/Inscricoes.jsx";
+import Layout from "../Layout/Layout.jsx";
+import LayoutAdmin from "../Layout/LayoutAdm.jsx";
 
 const queryClient = new QueryClient();
 

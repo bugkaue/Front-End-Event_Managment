@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useAdminLogin } from '../services/AdminAuth';
-import '../styles/adminLogin.css';
+import { useAdminLogin } from '../../services/AdminAuth';
+import '../../styles/Admin/AdminLogin.css';
 
 const AdminLogin = () => {
     const [email, setEmail] = useState('');

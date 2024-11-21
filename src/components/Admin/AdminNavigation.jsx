@@ -8,8 +8,8 @@ import {
   Settings,
   LogOut
 } from 'lucide-react';
-import logoImage from '../assets/logo.png';
-import { useAuthLogout } from '../services/AdminAuth';
+import logoImage from '../../assets/logo.png';
+import { useAuthLogout } from '../../services/AdminAuth';
 
 const AdminNavigation = () => {
   const navigate = useNavigate();

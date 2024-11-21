@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import "./responsive.css";
-import "./styles/AdminNavigation.css";
+import App from '../src/Router/App.jsx'
+import './styles/Usuario/index.css'
+import "./styles/responsive.css";
+import "./styles/Admin/AdminNavigation.css";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

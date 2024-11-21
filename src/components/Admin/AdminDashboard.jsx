@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import { Users, Calendar, CheckSquare, Flag, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useFetchUserCount, useFetchEventosCount } from '../services/Usuarios.js';
-import { useFetchInscricaoCount, useFetchInscricoesAdmin } from '../services/Inscricao.js';
-import { useFetchFinalizadosCount, useFetchRecentes } from '../services/Eventos.js';
-import { useAuth } from '../context/AuthContext';
+import { useFetchUserCount, useFetchEventosCount } from '../../services/Usuarios.js';
+import { useFetchInscricaoCount, useFetchInscricoesAdmin } from '../../services/Inscricao.js';
+import { useFetchFinalizadosCount, useFetchRecentes } from '../../services/Eventos.js';
+import { useAuth } from '../../context/AuthContext.jsx';
 import moment from 'moment';
 import { Line } from 'react-chartjs-2';
 import {

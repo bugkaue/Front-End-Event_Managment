@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom"
-import NavigationAdm from "./components/AdminNavigation"
+import Navigation from "../components/Usuario/Navigation"
 
-const LayoutAdm = () => {
+const Layout = () => {
     return (
         <div>
-            <NavigationAdm/>
+            <Navigation/>
             <main>
                 <Outlet/>
             </main>
@@ -12,4 +12,4 @@ const LayoutAdm = () => {
     )
 }
 
-export default LayoutAdm;
+export default Layout;

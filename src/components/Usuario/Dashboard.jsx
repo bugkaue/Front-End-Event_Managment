@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Clock, Users } from 'lucide-react';
-import { useFetchEventos } from '../services/Eventos';
-import { useFetchInscricoes, useSubscribeEventos } from '../services/Inscricao';
-import { useAuth } from '../context/AuthContext';
+import { useFetchEventos } from '../../services/Eventos';
+import { useFetchInscricoes, useSubscribeEventos } from '../../services/Inscricao';
+import { useAuth } from '../../context/AuthContext';
 import Swal from 'sweetalert2';
-import '../styles/AdminNavigation.css';
+import '../../styles/Admin/AdminNavigation.css';
 
 const isEventoLotado = (numeroInscricoes, capacidadeMaxima) => numeroInscricoes >= capacidadeMaxima;
 const isEventoFinalizado = (dataHora) => new Date(dataHora) < new Date();

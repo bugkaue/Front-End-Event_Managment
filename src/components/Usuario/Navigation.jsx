@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { logout } from '../services/Auth';
+import { logout } from '../../services/Auth';
 import { LayoutDashboard, Calendar, Settings, LogOut, ChevronRight } from 'lucide-react';
-import logoImage from '../assets/logo.png';
-import { useAuth } from '../context/AuthContext';
+import logoImage from '../../assets/logo.png';
+import { useAuth } from '../../context/AuthContext';
 
 const Navigation = () => {
   const navigate = useNavigate();

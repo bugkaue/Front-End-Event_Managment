@@ -6,10 +6,10 @@ import {
   useCreateEvento,
   useUpdateEvento,
   useDeleteEvento,
-} from '../services/Eventos';
-import { useAuth } from '../context/AuthContext';
-import '../styles/AdminEventos.css';
-import { useGerarRelatorio } from '../services/Inscricao';
+} from '../../services/Eventos';
+import { useAuth } from '../../context/AuthContext';
+import '../../styles/Admin/AdminEventos.css';
+import { useGerarRelatorio } from '../../services/Inscricao';
 
 const AdminEventos = () => {
   const { token } = useAuth();
