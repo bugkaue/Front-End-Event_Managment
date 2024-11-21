@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Image from "../../assets/logoRegister.png";
 import Logo from "../../assets/logo.png";
-import GoogleSvg from "../../assets/icons8-google.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { useRegisterUser } from "../../services/Auth";
 import axios from "axios";
@@ -17,7 +16,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isWaitingForConfirmation, setIsWaitingForConfirmation] = useState(false);
-  const [confirmationToken, setConfirmationToken] = useState(""); // Novo estado para armazenar o token
+  const [confirmationToken, setConfirmationToken] = useState(""); 
   const navigate = useNavigate();
 
   const { mutate: register } = useRegisterUser();
@@ -25,7 +24,6 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    // Validações
     if (password.length < 8) {
       setErrorMessage("A senha deve ter pelo menos 8 caracteres.");
       return;
@@ -40,15 +38,14 @@ const SignUp = () => {
       return;
     }
 
-    setErrorMessage(""); // Resetar mensagem de erro
+    setErrorMessage(""); 
 
-    // Registrando o usuário
     register(
       { nome, sobrenome, email, password, confirmPassword },
       {
         onSuccess: (response) => {
           setIsWaitingForConfirmation(true);
-          setConfirmationToken(response.token); // Define o token retornado pela API
+          setConfirmationToken(response.token); 
         },
         onError: () => {
           setErrorMessage("Ocorreu um erro ao registrar.");
@@ -57,7 +54,6 @@ const SignUp = () => {
     );
   };
 
-  // useEffect para verificar a confirmação de e-mail periodicamente
   useEffect(() => {
     let interval;
     if (isWaitingForConfirmation && confirmationToken) {
@@ -68,12 +64,12 @@ const SignUp = () => {
           });
           if (response.status === 200) {
             clearInterval(interval);
-            navigate("/"); // Redireciona para a tela de login após confirmação
+            navigate("/"); 
           }
         } catch (error) {
           console.log("Aguardando confirmação...");
         }
-      }, 5000); // Verifica a cada 5 segundos
+      }, 5000); 
     }
     return () => clearInterval(interval);
   }, [isWaitingForConfirmation, confirmationToken, email, navigate]);

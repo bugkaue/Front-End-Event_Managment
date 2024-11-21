@@ -16,12 +16,9 @@ const Dashboard = () => {
   const [localInscricoes, setLocalInscricoes] = useState([]);
   const [visibleCount, setVisibleCount] = useState(6);
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all'); // 'all', 'available', 'finished', 'full'
-
-  // Combina as inscrições locais e as recuperadas da API
+  const [statusFilter, setStatusFilter] = useState('all');
   const inscricoesCombinadas = [...(inscricoes || []), ...localInscricoes];
 
-  // Função de pesquisa
   const filteredEventos = eventos?.filter((evento) => {
     const matchSearchTerm = evento.titulo.toLowerCase().includes(searchTerm.toLowerCase());
     const matchStatusFilter = (statusFilter === 'all') ||
@@ -39,7 +36,6 @@ const Dashboard = () => {
     onSuccess: (newInscricao) => {
       setLocalInscricoes((prevInscricoes) => {
         const updatedInscricoes = [...prevInscricoes, newInscricao];
-        // Salva as inscrições no localStorage
         localStorage.setItem('inscricoes', JSON.stringify(updatedInscricoes));
         return updatedInscricoes;
       });
@@ -76,7 +72,6 @@ const Dashboard = () => {
     setVisibleCount((prevCount) => prevCount + 6);
   };
 
-  // Carregar inscrições do localStorage ao montar o componente
   useEffect(() => {
     const inscricoesSalvas = JSON.parse(localStorage.getItem('inscricoes')) || [];
     setLocalInscricoes(inscricoesSalvas);
@@ -86,8 +81,7 @@ const Dashboard = () => {
     <div className="flex">
       <main className="flex-1 p-6">
         <h1 className="text-3xl font-bold mb-8">Eventos Disponíveis</h1>
-        
-        {/* Barra de pesquisa */}
+
         <div className="mb-4">
           <input
             type="text"
@@ -98,7 +92,6 @@ const Dashboard = () => {
           />
         </div>
 
-        {/* Filtros */}
         <div className="mb-6">
           <label className="mr-4">Filtrar por:</label>
           <select
@@ -140,12 +133,12 @@ const Dashboard = () => {
                   onClick={() => handleInscrever(evento.id)}
                   disabled={isInscrito(evento.id) || isEventoFinalizado(evento.dataHora) || isEventoLotado(evento.numeroInscricoes, evento.capacidadeMaxima)}
                   className={`w-full py-2 px-4 rounded-md transition-colors ${isEventoFinalizado(evento.dataHora)
-                      ? 'bg-red-500 text-white cursor-not-allowed'
-                      : isInscrito(evento.id)
-                        ? 'bg-gray-500 text-white cursor-not-allowed'
-                        : isEventoLotado(evento.numeroInscricoes, evento.capacidadeMaxima)
-                          ? 'bg-gray-400 text-white cursor-not-allowed'
-                          : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                    ? 'bg-red-500 text-white cursor-not-allowed'
+                    : isInscrito(evento.id)
+                      ? 'bg-gray-500 text-white cursor-not-allowed'
+                      : isEventoLotado(evento.numeroInscricoes, evento.capacidadeMaxima)
+                        ? 'bg-gray-400 text-white cursor-not-allowed'
+                        : 'bg-indigo-600 hover:bg-indigo-700 text-white'
                     }`}
                 >
                   {isEventoFinalizado(evento.dataHora)

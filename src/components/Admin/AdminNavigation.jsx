@@ -20,7 +20,7 @@ const AdminNavigation = () => {
     { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard', path: '/admin-dashboard' },
     { id: 'usuarios', icon: Users, label: 'Usuários', path: '/usuarios' },
     { id: 'gerencia-eventos', icon: Calendar, label: 'Gerenciar Eventos', path: '/gerencia-eventos' },
-    { id: 'settings', icon: Settings, label: 'Configurações', path: '#' }, // Adicione a rota conforme necessário
+    { id: 'settings', icon: Settings, label: 'Configurações', path: '#' }, 
   ];
 
   return (

@@ -28,7 +28,7 @@ ChartJS.register(
   Legend
 );
 
-const ITEMS_PER_PAGE = 10; // Número de itens por página
+const ITEMS_PER_PAGE = 10;
 
 const StatCard = ({ icon: Icon, title, value, buttonText, onButtonClick }) => (
   <div className="bg-white rounded-lg p-6 shadow-md">
@@ -155,24 +155,20 @@ const Dashboard = () => {
         <p className="text-gray-600">Bem-vindo ao seu painel de controle</p>
       </div>
 
-      {/* Mensagens de Carregamento */}
       {(isUserLoading || isEventosLoading || isInscricaoLoading || isFinalizadosLoading || isAtividadesLoading) && (
         <p>Carregando contagem...</p>
       )}
 
-      {/* Mensagens de Erro */}
       {(userError || eventosError || inscricaoError || finalizadosError || atividadesError) && (
         <p>Erro ao carregar dados do dashboard</p>
       )}
 
-      {/* Dados do Dashboard */}
       <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ${isUserLoading || isEventosLoading || isInscricaoLoading || isFinalizadosLoading || isAtividadesLoading ? 'hidden' : ''}`}>
         {stats.map((stat, index) => (
           <StatCard key={index} {...stat} />
         ))}
       </div>
 
-      {/* Gráfico de Atividade Mensal */}
       {!isUserLoading && !isEventosLoading && !isInscricaoLoading && !isFinalizadosLoading && !isAtividadesLoading && (
         <div className="w-full flex justify-center">
           <div className="mt-8 bg-white rounded-lg p-6 shadow-md w-full max-w-3xl">
@@ -182,7 +178,6 @@ const Dashboard = () => {
         </div>
       )}
 
-      {/* Atividade Recente */}
       <div className="mt-8 bg-white rounded-lg p-6 shadow-md">
         <div className="flex justify-between items-center cursor-pointer" onClick={toggleRecentActivity}>
           <h2 className="text-xl font-bold text-gray-800">Atividade Recente</h2>
@@ -215,11 +210,10 @@ const Dashboard = () => {
                   <button
                     key={index}
                     onClick={() => setCurrentPage(index + 1)}
-                    className={`px-4 py-2 rounded-full ${
-                      currentPage === index + 1
+                    className={`px-4 py-2 rounded-full ${currentPage === index + 1
                         ? 'bg-indigo-500 text-white'
                         : 'bg-gray-200 text-gray-600'
-                    }`}
+                      }`}
                   >
                     {index + 1}
                   </button>

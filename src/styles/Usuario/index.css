@@ -44,7 +44,7 @@
 .login-center {
   color: white;
   margin: auto 0;
-  text-align: center; /* Centraliza texto dentro do container */
+  text-align: center; 
 }
 
 .login-logo img {
@@ -62,140 +62,136 @@
 }
 
 .input-container {
-  position: relative; /* Para posicionar o label em relação ao input */
-  margin-bottom: 16px; /* Espaço entre os campos */
+  position: relative; 
+  margin-bottom: 16px; 
 }
 
 .input-container label {
-  position: absolute; /* Para permitir a movimentação do label */
-  left: 10px; /* Distância da esquerda */
+  position: absolute; 
+  left: 10px; 
   padding-top: 19px;
   display: flex;
   margin-left: 35%;
-  top: 25%; /* Centraliza verticalmente em relação ao input */
-  transform: translateY(-50%); /* Ajusta para ficar centralizado */
+  top: 25%; 
+  transform: translateY(-50%); 
 
-  font-size: 1.6rem; /* Tamanho do texto */
-  color: #ae8585; /* Cor do label */
-  transition: 0.2s ease all; /* Efeito de transição suave */
+  font-size: 1.6rem; 
+  color: #ae8585; 
+  transition: 0.2s ease all; 
 }
 
 .input-container input {
-  border: none; /* Remove a borda padrão */
-  outline: none; /* Remove o contorno ao focar */
-  padding: 10px 0; /* Espaçamento interno */
-  width: 30%; /* Largura do input */
-  margin: 0; /* Remove a margem */
+  border: none; 
+  outline: none; 
+  padding: 10px 0; 
+  width: 30%; 
+  margin: 0; 
   display: flex;
   margin-left: 35%;
-  background-color: transparent; /* Fundo transparente */
-  font-size: 1.6rem; /* Tamanho da fonte */
-  color: #fff; /* Cor do texto do input */
+  background-color: transparent;
+  font-size: 1.6rem; 
+  color: #fff; 
 }
 
-/* Linha embaixo do input */
 .input-line {
   width: 30%;
   height: 2px;
   display: flex;
   margin-left: 35%;
-  background-color: #ccc; /* Cor da linha embaixo */
-  position: absolute; /* Para posicionar a linha abaixo do input */
-  bottom: -4px; /* Distância do bottom */
-  left: 0; /* Alinha à esquerda */
+  background-color: #ccc;
+  position: absolute; 
+  bottom: -4px; 
+  left: 0; 
 }
 
-/* Efeito ao focar no input */
 input:focus + label,
 input:not(:placeholder-shown) + label {
-  top: -50; /* Move o label para cima */
-  left: 30%; /* Mantém à esquerda */
+  top: -50; 
+  left: 30%; 
   display: flex;
-  font-size: 1.2rem; /* Tamanho menor ao subir */
+  font-size: 1.2rem; 
   margin-left: 1%;
   opacity: 0;
 }
 
-/* Estilo do Remember me */
 .remember-div {
   display: flex;
-  align-items: center; /* Alinha verticalmente */
-  justify-content: flex-start; /* Alinha horizontalmente com o checkbox */
+  align-items: center; 
+  justify-content: flex-start; 
   margin-left: 35%;
-  margin-bottom: 16px; /* Espaço abaixo do botão */
-  gap: 10px; /* Espaçamento entre o checkbox e o texto */
+  margin-bottom: 16px; 
+  gap: 10px; 
 }
 
-/* Estilo do checkbox */
 .remember-div input[type="checkbox"] {
-  appearance: none; /* Remove o estilo padrão do checkbox */
-  width: 20px; /* Tamanho do checkbox */
-  height: 20px; /* Tamanho do checkbox */
-  border: 2px solid #ccc; /* Borda padrão */
-  border-radius: 4px; /* Bordas arredondadas */
-  cursor: pointer; /* Muda o cursor para indicar que é clicável */
-  background-color: #191a4b; /* Fundo do checkbox quando não selecionado */
-  position: relative; /* Para posicionar o ícone de check corretamente */
+  appearance: none; 
+  width: 20px; 
+  height: 20px; 
+  border: 2px solid #ccc; 
+  border-radius: 4px; 
+  cursor: pointer; 
+  background-color: #191a4b; 
+  position: relative; 
 }
 
-/* Estilo do checkbox quando selecionado */
+
 .remember-div input[type="checkbox"]:checked {
-  background-color: #101238; /* Cor de fundo quando selecionado */
+  background-color: #101238; 
 }
 
-/* Ícone de check que aparece quando selecionado */
+
 .remember-div input[type="checkbox"]:checked::after {
-  content: "✓"; /* Adiciona um checkmark */
-  position: absolute; /* Posiciona em relação ao checkbox */
-  top: 50%; /* Centraliza verticalmente */
-  left: 50%; /* Centraliza horizontalmente */
-  transform: translate(-50%, -50%); /* Ajusta a posição */
-  color: #fff; /* Cor do checkmark */
-  font-size: 14px; /* Tamanho do checkmark */
+  content: "✓"; 
+  position: absolute; 
+  top: 50%;
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  color: #fff; 
+  font-size: 14px; 
 }
 
 
 .password-toggle-icon {
   position: absolute;
-  right: 5%; /* Posiciona o ícone à direita do campo de senha */
+  right: 5%; 
   left: 60%;
-  top: 50%; /* Centraliza verticalmente */
-  transform: translateY(-50%); /* Ajuste para centralizar corretamente */
-  cursor: pointer; /* Mostra que é clicável */
-  color: #ae8585; /* Cor do ícone */
-  font-size: 1.6rem; /* Tamanho do ícone */
+  top: 50%; 
+  transform: translateY(-50%); 
+  cursor: pointer; 
+  color: #ae8585; 
+  font-size: 1.6rem;
 }
 
 .password-toggle-icon {
-  font-size: 2rem; /* Ajuste o tamanho do ícone com base no tamanho do texto */
+  font-size: 2rem; 
 }
 
 
-/* Remove o fundo de preenchimento automático */
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px #191a4b inset !important; /* Altere #191a4b para a cor do seu fundo */
-  -webkit-text-fill-color: #fff !important; /* Cor do texto ao preencher automaticamente */
-  transition: background-color 5000s ease-in-out 0s; /* Remove a transição para preenchimento automático */
+  -webkit-box-shadow: 0 0 0 30px #191a4b inset !important; 
+  -webkit-text-fill-color: #fff !important; 
+  transition: background-color 5000s ease-in-out 0s; 
 }
 
 .login-center-options {
   display: inline-flex;
-  justify-content: space-between; /* Espaça os elementos horizontalmente */
-  width: 50%; /* Ajuste conforme necessário para controlar o espaço disponível */
+  justify-content: space-between; 
+  width: 50%; 
   margin-left: 18%;
 }
 
 .forgot-pass-link {
-  color: #fff; /* Cor do texto do link */
-  text-decoration: dotted; /* Remove sublinhado */
-  font-size: 1.4rem; /* Tamanho do texto */
+  color: #fff; 
+  text-decoration: dotted; 
+  font-size: 1.4rem; 
 }
 
 .forgot-pass-link:hover {
-  text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+  text-decoration: underline; 
 }
 
 
@@ -208,7 +204,7 @@ form button[type='submit'] {
   margin-left: auto;
   margin-right: auto;
   border: none;
-  border-radius: 30px; /* Bordas arredondadas */
+  border-radius: 30px; 
   font-size: 16px;
   cursor: pointer;
   font-weight: 600;
@@ -249,12 +245,12 @@ form button[type='submit'] {
 }
 
 .error-message {
-  color: #ff4d4d; /* Cor de erro mais suave */
-  font-weight: 500; /* Peso da fonte ajustado */
-  margin-top: 10px; /* Espaçamento acima da mensagem de erro */
-  padding: 8px; /* Espaçamento interno */
-  border-radius: 5px; /* Bordas arredondadas */
-  display: inline-block; /* Permite controle de largura */
+  color: #ff4d4d; 
+  font-weight: 500; 
+  margin-top: 10px; 
+  padding: 8px; 
+  border-radius: 5px; 
+  display: inline-block; 
 }
 
 .login-bottom-p {

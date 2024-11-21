@@ -2,18 +2,15 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 
-// Função para excluir um usuário com base no e-mail
 const deleteUsuario = ({ email, token }) => {
   return axios.delete("https://localhost:7062/api/Account/delete-user?${email}", {
-    params: { email }, // Passando email como query string
+    params: { email },
     headers: {
-      Authorization: `Bearer ${token}`, // Adicionando o token de autenticação
+      Authorization: `Bearer ${token}`,
     },
   });
 };
 
-
-// Hook para excluir um usuário
 export const useDeleteUsuario = (options = {}) => {
   const queryClient = useQueryClient();
   const { token } = useAuth();

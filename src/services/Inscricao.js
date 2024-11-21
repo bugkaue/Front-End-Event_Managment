@@ -2,7 +2,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 
-// Função para se inscrever em um evento
 const subscribeEvento = async ({ participanteId, eventoId, token }) => {
   const response = await axios.post(
     'https://localhost:7062/Inscricao',
@@ -19,7 +18,6 @@ const subscribeEvento = async ({ participanteId, eventoId, token }) => {
   return response.data;
 };
 
-// Função para buscar inscrições
 const fetchInscricoes = async (token, participanteId) => {
   const response = await axios.get(`https://localhost:7062/Inscricao/${participanteId}/eventos`, {
     headers: {
@@ -39,7 +37,6 @@ const fetchInscricoes2 = async (token) => {
 };
 
 
-// Função para remover inscrição
 const removeInscricao = async ({ participanteId, eventoId, token }) => {
   const response = await axios.delete(`https://localhost:7062/Inscricao/${participanteId}/evento/${eventoId}`, {
     headers: {
@@ -55,15 +52,13 @@ const fetchInscricaoCount = async () => {
 }
 
 
-// hook contagem de usuarios
-export const useFetchInscricaoCount = () => { // Corrected the function name to use camel case
+export const useFetchInscricaoCount = () => {
   return useQuery({
     queryKey: ["inscricaoCount"],
     queryFn: fetchInscricaoCount,
   });
 }
 
-// Hook para se inscrever em eventos
 export const useSubscribeEventos = (options = {}) => {
   const { token } = useAuth();
   return useMutation({
@@ -78,7 +73,6 @@ export const useSubscribeEventos = (options = {}) => {
   });
 };
 
-// Hook para buscar inscrições
 export const useFetchInscricoes = (token, participanteId, options = {}) => {
   return useQuery({
     queryKey: ["inscricoes", participanteId],
@@ -97,9 +91,8 @@ export const useFetchInscricoesAdmin = (token, options = {}) => {
   })
 }
 
-// Hook para remover inscrição
 export const useRemoveInscricao = (options = {}) => {
-  const queryClient = useQueryClient(); // Obtendo a instância do queryClient
+  const queryClient = useQueryClient(); 
   const { token } = useAuth()
 
   return useMutation({
@@ -125,7 +118,6 @@ export const useRemoveInscricao = (options = {}) => {
   });
 };
 
-// Função para gerar relatório de inscrições
 const gerarRelatorio = async (eventoId, token) => {
   try {
     const response = await axios.get(`https://localhost:7062/Relatorio/gerar/${eventoId}`, {
@@ -135,7 +127,6 @@ const gerarRelatorio = async (eventoId, token) => {
       responseType: 'blob',
     });
 
-    // Create a link to download the file
     const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
     const link = document.createElement('a');
     link.href = url;
@@ -150,7 +141,6 @@ const gerarRelatorio = async (eventoId, token) => {
   }
 };
 
-// Hook para gerar relatório de inscrições
 export const useGerarRelatorio = () => {
   return {
     gerarRelatorio,

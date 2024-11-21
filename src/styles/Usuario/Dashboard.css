@@ -1,21 +1,12 @@
-/* 
-body {
-  
-  background: linear-gradient(200deg, #0a0c26, #0e0f22); /* Gradiente linear para a seção direita *
-  /* Remove margens padrão 
-}
-*/
-
-/* Estilo para a seção de eventos */
 .load-more-button {
-  display: block; /* Faz o botão ocupar toda a largura */
-  margin: 20px auto; /* Centraliza o botão */
-  padding: 10px 20px; /* Espaçamento interno do botão */
-  background-color: #007bff; /* Cor de fundo */
-  color: white; /* Cor do texto */
-  border: none; /* Remove a borda */
-  border-radius: 5px; /* Bordas arredondadas */
-  cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
+  display: block; 
+  margin: 20px auto; 
+  padding: 10px 20px; 
+  background-color: #007bff; 
+  color: white; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
 }
 
 

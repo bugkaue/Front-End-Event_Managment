@@ -19,18 +19,14 @@ const AdminEventos = () => {
   const updateEvento = useUpdateEvento();
   const { gerarRelatorio } = useGerarRelatorio();
 
-  // Estados para pesquisa e filtro
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
 
-  // Função para filtrar eventos
   const filteredEventos = eventos.filter((evento) => {
-    // Filtrar por termo de pesquisa
     const matchesSearchTerm = evento.titulo
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
 
-    // Filtrar por status
     let matchesStatus = true;
 
     if (statusFilter === 'available') {
@@ -45,7 +41,6 @@ const AdminEventos = () => {
     return matchesSearchTerm && matchesStatus;
   });
 
-  // Função para criar um novo evento
   const handleNovoEvento = async () => {
     const { value: formValues } = await Swal.fire({
       title: 'Criar Novo Evento',
@@ -114,7 +109,6 @@ const AdminEventos = () => {
     }
   };
 
-  // Função para editar um evento existente
   const handleEditarEvento = async (evento) => {
     const { value: formValues } = await Swal.fire({
       title: 'Editar Evento',
@@ -191,7 +185,6 @@ const AdminEventos = () => {
     }
   };
 
-  // Função para excluir um evento
   const handleDeleteEvento = async (evento) => {
     const { isConfirmed } = await Swal.fire({
       title: 'Tem certeza?',
@@ -242,7 +235,6 @@ const AdminEventos = () => {
         </button>
       </div>
 
-      {/* Campos de pesquisa e filtro */}
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center gap-4">
           <input

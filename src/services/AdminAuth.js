@@ -28,11 +28,9 @@ export const useAuthLogout = () => {
     return useMutation({
         mutationFn: logoutAdmin,
         onSuccess: () => {
-            // Remove os dados do localStorage
             localStorage.removeItem('jwtToken');
             localStorage.removeItem('participanteId');
-            
-            // Redireciona para a página de login
+
             navigate('/admin-login');
             console.log("Logout realizado com sucesso.");
         },
@@ -48,20 +46,17 @@ export const useAdminLogin = (options = {}) => {
     return useMutation({
         mutationFn: ({ email, password }) => loginAdmin({ email, password }),
         onSuccess: (data) => {
-            // Armazena o token JWT no localStorage
             localStorage.setItem('jwtToken', data.token);
-            localStorage.setItem('roles', JSON.stringify(data.roles)); // Armazena as roles do usuário
-
+            localStorage.setItem('roles', JSON.stringify(data.roles));
             console.log("Login de Administrador bem-sucedido:", data);
 
-            // Verifica se a role do usuário é "Admin" e redireciona para a página do AdminDashboard
             if (data.roles.includes('Admin')) {
                 navigate('/admin-dashboard');
             } else {
                 console.error("Usuário não possui permissões de administrador");
             }
 
-            window.location.reload(); // Recarrega a página
+            window.location.reload();
         },
         onError: (error) => {
             console.error("Erro ao fazer o login do administrador", error);

@@ -8,14 +8,11 @@ import axios from 'axios'; // Não esqueça de importar o axios
 import '../../styles/Admin/AdminUsuario.css'; // Importando o arquivo de estilos
 
 const Usuarios = () => {
-  // Hook para buscar dados dos usuários
   const { data: usuarios, isLoading, error } = useFetchUsuarios();
   const { token } = useAuth(); // Obter token de autenticação
 
-  // Hook para deletar usuário
   const { mutate: deleteUser } = useDeleteUsuario();
 
-  // Verifique se está carregando ou se houve um erro
   if (isLoading) {
     return <p>Carregando...</p>;
   }
@@ -28,13 +25,13 @@ const Usuarios = () => {
     try {
       const response = await axios.get(`https://localhost:7062/Inscricao/${participanteId}/eventos`, {
         headers: {
-          Authorization: `Bearer ${token}`, 
+          Authorization: `Bearer ${token}`,
         },
       });
 
       Swal.fire({
         title: 'Eventos Inscritos',
-        html: generateEventListHtml(response.data),  
+        html: generateEventListHtml(response.data),
         showCloseButton: true,
         showCancelButton: false,
         focusConfirm: false,
@@ -61,7 +58,6 @@ const Usuarios = () => {
     ).join('');
   };
 
-  // Função para deletar usuário com confirmação
 
   const handleDelete = (email) => {
     Swal.fire({

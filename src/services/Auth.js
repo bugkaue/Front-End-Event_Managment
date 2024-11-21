@@ -92,7 +92,6 @@ export const useLogin = (options = {}) => {
 
             console.log("Login bem-sucedido:", data);
 
-            // Redireciona com base na role do usuário
                 navigate("/dashboard");
             window.location.reload();  // Recarrega a página
         },

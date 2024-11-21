@@ -1,25 +1,25 @@
 .event-list {
   display: flex;
-  flex-wrap: wrap; /* Para permitir que os itens se movam para a próxima linha, se necessário */
-  gap: 20px; /* Espaçamento entre os itens */
+  flex-wrap: wrap;
+  gap: 20px; 
 }
 
 .event-item {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra leve */
-  border-radius: 8px; /* Bordas arredondadas */
-  padding: 16px; /* Espaçamento interno */
-  transition: transform 0.3s, box-shadow 0.3s; /* Transição suave para o zoom e sombra */
-  width: 300px; /* Largura fixa ou ajuste conforme necessário */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+  border-radius: 8px; 
+  padding: 16px; 
+  transition: transform 0.3s, box-shadow 0.3s; 
+  width: 300px; 
 }
 
 .event-item:hover {
-  transform: scale(1.05); /* Efeito de zoom */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra ao passar o mouse */
+  transform: scale(1.05); 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
 }
 
 .triste-imagem {
-  display: block; /* Para garantir que a imagem fique em uma nova linha */
-  margin: 20px auto; /* Centraliza a imagem */
-  width: 100px; /* Ajuste conforme necessário */
-  height: auto; /* Mantém a proporção da imagem */
+  display: block; 
+  margin: 20px auto; 
+  width: 100px; 
+  height: auto; 
 }

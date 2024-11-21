@@ -28,7 +28,7 @@ const Login = () => {
       return;
     }
 
-    setErrorMessage(""); // Limpa qualquer mensagem de erro anterior
+    setErrorMessage("");
 
     login({ email, password });
   };
@@ -51,7 +51,7 @@ const Login = () => {
                 <input
                   type="text"
                   id="email"
-                  placeholder=" " // Placeholder vazio para que o label funcione
+                  placeholder=" "
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -64,7 +64,7 @@ const Login = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   id="password"
-                  placeholder=" " // Placeholder vazio para que o label funcione
+                  placeholder=" "
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -72,7 +72,6 @@ const Login = () => {
                 <label htmlFor="password">Senha</label>
                 <div className="input-line"></div>
 
-                {/* Ícone de olho para mostrar/ocultar senha */}
                 {showPassword ? (
                   <FaEyeSlash
                     className="password-toggle-icon"

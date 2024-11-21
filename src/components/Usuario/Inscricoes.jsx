@@ -5,7 +5,7 @@ import { useRemoveInscricao } from '../../services/Inscricao';
 import Swal from 'sweetalert2';
 import '../../styles/Usuario/Inscricoes.css';
 import carinhatriste from '../../assets/carinhatriste.png';
-import { MapPin, Clock, Users } from 'lucide-react';
+import { MapPin, Clock } from 'lucide-react';
 
 const Inscricoes = () => {
   const { token, participante } = useAuth();

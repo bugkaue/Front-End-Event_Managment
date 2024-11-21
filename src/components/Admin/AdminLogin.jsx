@@ -5,7 +5,7 @@ import '../../styles/Admin/AdminLogin.css';
 const AdminLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState(''); // Estado para mensagem de erro
+    const [errorMessage, setErrorMessage] = useState(''); 
     const { mutate: adminLogin } = useAdminLogin({
         onError: (error) => {
             setErrorMessage("Erro ao fazer login: Usuário ou senha incorretos ou sem permissões administrativas."); 
@@ -14,7 +14,7 @@ const AdminLogin = () => {
 
     const handleAdminLogin = (e) => {
         e.preventDefault();
-        setErrorMessage(''); // Limpa a mensagem de erro antes de tentar o login
+        setErrorMessage(''); 
         adminLogin({ email, password }, {
             onSuccess: (data) => {
                 if (!data.roles.includes('Admin')) {

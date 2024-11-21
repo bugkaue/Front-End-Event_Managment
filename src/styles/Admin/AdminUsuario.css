@@ -76,9 +76,9 @@
   background-color: #c82333;
 }
 .evento-item {
-  padding: 15px; /* Adiciona um padding ao redor de cada evento */
-  margin: 10px 0; /* Adiciona margem entre os eventos */
-  border: 1px solid #ccc; /* (Opcional) Adiciona uma borda para delimitar os eventos */
-  border-radius: 5px; /* (Opcional) Adiciona cantos arredondados */
-  background-color: #f9f9f9; /* (Opcional) Fundo levemente diferente para cada evento */
+  padding: 15px; 
+  margin: 10px 0; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  background-color: #f9f9f9; 
 }

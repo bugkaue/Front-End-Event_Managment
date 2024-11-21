@@ -14,13 +14,13 @@
 
 .eventoItem {
   display: flex;
-  flex-direction: column; /* Alterado para coluna para melhor visualização */
+  flex-direction: column; 
   margin-top: 2vh;
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
   transition: box-shadow 0.3s ease;
-  background-color: #1a1a1a; /* Cor de fundo para contraste */
+  background-color: #1a1a1a; 
 }
 
 .eventoItem:hover {
@@ -30,7 +30,7 @@
 .eventoAcoes {
   display: flex;
   gap: 10px;
-  margin-top: 10px; /* Espaçamento entre as informações do evento e os botões */
+  margin-top: 10px; 
 }
 
 .editButton, .deleteButton {

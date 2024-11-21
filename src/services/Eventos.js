@@ -2,7 +2,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-// Função para buscar eventos
 const fetchEventos = async (token) => {
     const response = await axios.get("https://localhost:7062/Eventos", {
         headers: {
@@ -12,7 +11,6 @@ const fetchEventos = async (token) => {
     return response.data;
 };
 
-// Função para criar um novo evento
 const createEvento = async ({ token, data }) => {
     const response = await axios.post("https://localhost:7062/Eventos", data, {
         headers: {
@@ -31,7 +29,6 @@ const deleteEvento = async ({ token, id }) => {
     return response.data;
 };
 
-// Função para atualizar um evento
 const updateEvento = async ({ token, id, data }) => {
     const response = await axios.put(`https://localhost:7062/Eventos/${id}`, data, {
         headers: {
@@ -40,9 +37,6 @@ const updateEvento = async ({ token, id, data }) => {
     });
     return response.data;
 };
-
-
-
 
 const fetchFinalizadosCount = async (token) => {
     const response = await axios.get('https://localhost:7062/Eventos/count/finalizados', {
@@ -53,7 +47,6 @@ const fetchFinalizadosCount = async (token) => {
     return response.data;
 };
 
-// função para fazer atividade recente
 const fetchRecentes = async (token) => { 
     const response = await axios.get('https://localhost:7062/Atividades', {
         headers: {
@@ -63,26 +56,22 @@ const fetchRecentes = async (token) => {
     return response.data;
 };
 
-// hhook para fazer atividade recente
 export const useFetchRecentes = (token) => {
     return useQuery({
         queryKey: ["recentes", token],
         queryFn: () => fetchRecentes(token),
-        enabled: !!token, // Garante que a consulta só seja habilitada se o token estiver presente
+        enabled: !!token, 
     });
 };
 
-// Hook para buscar eventos finalizados
 export const useFetchFinalizadosCount = (token) => {
     return useQuery({
         queryKey: ["finalizadosCount", token],
         queryFn: () => fetchFinalizadosCount(token),
-        enabled: !!token, // Garante que a consulta só seja habilitada se o token estiver presente
+        enabled: !!token, 
     });
 };
 
-
-// hook para deletar evento
 export const useDeleteEvento = () => {
     const queryClient = useQueryClient();
 
@@ -94,19 +83,17 @@ export const useDeleteEvento = () => {
     });
 };
 
-// Hook para atualizar eventos
 export const useUpdateEvento = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
         mutationFn: updateEvento,
         onSuccess: () => {
-            queryClient.invalidateQueries("eventos"); // Atualiza a lista de eventos após atualização
+            queryClient.invalidateQueries("eventos"); 
         },
     });
 };
 
-// Hook para buscar eventos
 export const useFetchEventos = (token, options = {}) => {
     return useQuery({
         queryKey: ["eventos", token],
@@ -116,14 +103,13 @@ export const useFetchEventos = (token, options = {}) => {
     });
 };
 
-// Hook para criar eventos com `mutationFn` explicitamente definido
 export const useCreateEvento = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: createEvento, // Definindo a função de mutação explicitamente
+        mutationFn: createEvento, 
         onSuccess: () => {
-            queryClient.invalidateQueries("eventos"); // Atualiza a lista de eventos após criação
+            queryClient.invalidateQueries("eventos"); 
         },
     });
 };
