@@ -28,14 +28,13 @@ const Usuarios = () => {
     try {
       const response = await axios.get(`https://localhost:7062/Inscricao/${participanteId}/eventos`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Substitua pelo seu token
+          Authorization: `Bearer ${token}`, 
         },
       });
 
-      // Exibir os eventos em um modal
       Swal.fire({
         title: 'Eventos Inscritos',
-        html: generateEventListHtml(response.data), // Gerar a lista de eventos como HTML
+        html: generateEventListHtml(response.data),  
         showCloseButton: true,
         showCancelButton: false,
         focusConfirm: false,
@@ -63,30 +62,30 @@ const Usuarios = () => {
   };
 
   // Função para deletar usuário com confirmação
-  
+
   const handleDelete = (email) => {
-  Swal.fire({
-    title: 'Tem certeza?',
-    text: "Você não poderá reverter essa ação!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Sim, excluir!',
-    cancelButtonText: 'Não, voltar!',
-  }).then((result) => {
-    if (result.isConfirmed) {
-      deleteUser({ email, token }, {
-        onSuccess: () => {
-          Swal.fire('Excluído!', 'O usuário foi excluído com sucesso.', 'success');
-        },
-        onError: (error) => {
-          Swal.fire('Erro!', 'Não foi possível excluir o usuário.', 'error');
-        }
-      });
-    }
-  });
-};
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: "Você não poderá reverter essa ação!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, excluir!',
+      cancelButtonText: 'Não, voltar!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteUser({ email, token }, {
+          onSuccess: () => {
+            Swal.fire('Excluído!', 'O usuário foi excluído com sucesso.', 'success');
+          },
+          onError: (error) => {
+            Swal.fire('Erro!', 'Não foi possível excluir o usuário.', 'error');
+          }
+        });
+      }
+    });
+  };
 
 
   return (
@@ -109,7 +108,7 @@ const Usuarios = () => {
                 Email
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Ações
+                Numero de eventos
               </th>
             </tr>
           </thead>
@@ -124,6 +123,9 @@ const Usuarios = () => {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-500">{usuario.email}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-500">{usuario.numeroEventosInscritos}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <div className="flex space-x-3">

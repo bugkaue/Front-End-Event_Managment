@@ -13,7 +13,12 @@ const loginAdmin = async ({ email, password }) => {
 };
 
 const logoutAdmin = async () => {
-    const response = await connector.post("/Account/logout");
+    const token = localStorage.getItem('jwtToken');
+    const response = await connector.post("/Account/logout", {}, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    });
     return response.data;
 };
 

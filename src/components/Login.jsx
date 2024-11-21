@@ -106,10 +106,6 @@ const Login = () => {
                 <button type="submit" disabled={isPending}>
                   {isPending ? "Logging in..." : "Log In"}
                 </button>
-                <button type="button">
-                  <img src={GoogleSvg} alt="Google logo" />
-                  Log In with Google
-                </button>
               </div>
             </form>
           </div>

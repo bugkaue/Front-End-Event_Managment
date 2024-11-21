@@ -3,11 +3,19 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 
 // Função para se inscrever em um evento
-const subscribeEvento = async ({ participanteId, eventoId }) => {
-  const response = await axios.post('https://localhost:7062/Inscricao', {
-    eventoId,
-    participanteId,
-  });
+const subscribeEvento = async ({ participanteId, eventoId, token }) => {
+  const response = await axios.post(
+    'https://localhost:7062/Inscricao',
+    {
+      eventoId,
+      participanteId,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   return response.data;
 };
 
@@ -20,6 +28,16 @@ const fetchInscricoes = async (token, participanteId) => {
   });
   return response.data;
 };
+
+const fetchInscricoes2 = async (token) => {
+  const response = await axios.get(`https://localhost:7062/Inscricao`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
 
 // Função para remover inscrição
 const removeInscricao = async ({ participanteId, eventoId, token }) => {
@@ -47,8 +65,9 @@ export const useFetchInscricaoCount = () => { // Corrected the function name to 
 
 // Hook para se inscrever em eventos
 export const useSubscribeEventos = (options = {}) => {
+  const { token } = useAuth();
   return useMutation({
-    mutationFn: ({ eventoId, participanteId }) => subscribeEvento({ eventoId, participanteId }),
+    mutationFn: ({ eventoId, participanteId }) => subscribeEvento({ eventoId, participanteId, token }),
     onSuccess: (data) => {
       console.log("Inscrito no evento!", data);
     },
@@ -69,6 +88,14 @@ export const useFetchInscricoes = (token, participanteId, options = {}) => {
     ...options,
   });
 };
+
+export const useFetchInscricoesAdmin = (token, options = {}) => {
+  return useQuery({
+    queryKey: ["inscricoes"],
+    queryFn: (token) => fetchInscricoes2(token),
+    ...options,
+  })
+}
 
 // Hook para remover inscrição
 export const useRemoveInscricao = (options = {}) => {

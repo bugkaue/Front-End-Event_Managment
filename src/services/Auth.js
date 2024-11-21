@@ -38,7 +38,12 @@ const confirmEmail = async (token, email) => {
 };
 
 export const logout = async () => {
-    const response = await connector.post("/Account/logout")
+    const token = localStorage.getItem('jwtToken');
+    const response = await connector.post("/Account/logout", {}, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+    });
     return response.data;
 }
 

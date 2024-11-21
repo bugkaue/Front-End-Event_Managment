@@ -1,59 +1,99 @@
-// services/Usuarios.js
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
+import { useAuth } from '../context/AuthContext';
 
-// Função para buscar usuários
-const fetchUsuarios = async () => {
-  const response = await axios.get('https://localhost:7062/Participante'); // Ajuste a URL conforme necessário
-  return response.data; // Retorna os dados dos usuários
-};
-
-// função para buscar cont usuarios
-const fetchUserCount = async () => {
-  const response = await axios.get('https://localhost:7062/Participante/count'); // Ajuste a URL conforme necessário
-  return response.data; // Retorna os dados dos usuários
-};
-
-const fetchEventosCount = async () => {
-  const response = await axios.get('https://localhost:7062/Eventos/count'); // Ajuste a URL conforme necessário
-  return response.data;
-};
-
-const fetchInscricaoCount = async () => { 
-  const response = await axios.get('https://localhost:7062/Inscricao/count');
-  return response.data;
-}
-
-
-// hook contagem de usuarios
-export const useFetchInscricaoCount = () => { // Corrected the function name to use camel case
-  return useQuery({
-    queryKey: ["inscricaoCount"],
-    queryFn: fetchInscricaoCount,
+// Função para buscar usuários com autenticação
+const fetchUsuarios = async (token) => {
+  const response = await axios.get('https://localhost:7062/Participante', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
-}
+  return response.data; // Retorna os dados dos usuários
+};
+
+// Função para buscar contagem de usuários com autenticação
+const fetchUserCount = async (token) => {
+  const response = await axios.get('https://localhost:7062/Participante/count', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+// Função para buscar contagem de eventos com autenticação
+const fetchEventosCount = async (token) => {
+  const response = await axios.get('https://localhost:7062/Eventos/count', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+// Função para buscar contagem de inscrições com autenticação
+const fetchInscricaoCount = async (token) => { 
+  const response = await axios.get('https://localhost:7062/Inscricao/count', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+// Hook para buscar a contagem de usuários
+export const useFetchUserCount = () => {
+  const { token } = useAuth();
+
+  return useQuery({
+    queryKey: ["userCount"],
+    queryFn: () => fetchUserCount(token),
+    enabled: !!token,
+    onError: (error) => {
+      console.error("Erro ao buscar contagem de usuários:", error);
+    },
+  });
+};
 
 // Hook para buscar a contagem de eventos
 export const useFetchEventosCount = () => {
-  return useQuery({
-    queryKey: ["eventosCount"], // Chave única para a query
-    queryFn: fetchEventosCount, // Função para buscar dados
-  });
-}
+  const { token } = useAuth();
 
-// Hook para buscar usuários
-export const useFetchUsuarios = () => {
   return useQuery({
-    queryKey: ["usuarios"], // Chave única para a query
-    queryFn: fetchUsuarios, // Função para buscar dados
-    // Adicione outras opções aqui, se necessário
+    queryKey: ["eventosCount"],
+    queryFn: () => fetchEventosCount(token),
+    enabled: !!token,
+    onError: (error) => {
+      console.error("Erro ao buscar contagem de eventos:", error);
+    },
   });
 };
 
-// hook para buscar a contagem de usuarios 
-export const useFetchUserCount = () => {
+// Hook para buscar a contagem de inscrições
+export const useFetchInscricaoCount = () => {
+  const { token } = useAuth();
+
   return useQuery({
-    queryKey: ["userCount"], // Chave única para a query
-    queryFn: fetchUserCount, // Função para buscar dados
+    queryKey: ["inscricaoCount"],
+    queryFn: () => fetchInscricaoCount(token),
+    enabled: !!token,
+    onError: (error) => {
+      console.error("Erro ao buscar contagem de inscrições:", error);
+    },
   });
-}
+};
+
+// Hook para buscar usuários
+export const useFetchUsuarios = () => {
+  const { token } = useAuth();
+
+  return useQuery({
+    queryKey: ["usuarios"],
+    queryFn: () => fetchUsuarios(token),
+    enabled: !!token,
+    onError: (error) => {
+      console.error("Erro ao buscar usuários:", error);
+    },
+  });
+};
